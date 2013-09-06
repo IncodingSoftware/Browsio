@@ -1,0 +1,226 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{15A0ED55-65AA-43F3-BA14-F53A0E9DC178}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Browsio.Domain</RootNamespace>
+    <AssemblyName>Browsio.Domain</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+    <RunCodeAnalysis>false</RunCodeAnalysis>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="DotNetOpenAuth">
+      <HintPath>..\packages\DotNetOpenAuth\DotNetOpenAuth.dll</HintPath>
+    </Reference>
+    <Reference Include="Facebook">
+      <HintPath>..\packages\Facebook.6.4.2\lib\net40-client\Facebook.dll</HintPath>
+    </Reference>
+    <Reference Include="FluentNHibernate">
+      <HintPath>..\packages\FluentNHibernate.1.3.0.733\lib\FluentNHibernate.dll</HintPath>
+    </Reference>
+    <Reference Include="FluentValidation">
+      <HintPath>..\packages\FluentValidation-Signed.3.4.6.0\lib\Net40\FluentValidation.dll</HintPath>
+    </Reference>
+    <Reference Include="FluentValidation.Mvc">
+      <HintPath>..\packages\FluentValidation.MVC3-Signed.3.4.6.0\lib\Net40\FluentValidation.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="Iesi.Collections">
+      <HintPath>..\packages\Iesi.Collections.3.2.0.4000\lib\Net35\Iesi.Collections.dll</HintPath>
+    </Reference>
+    <Reference Include="Incoding">
+      <HintPath>..\packages\Incoding.Framework.1.0.278.1005\lib\net40\Incoding.dll</HintPath>
+    </Reference>
+    <Reference Include="Incoding.MetaLanguageContrib">
+      <HintPath>..\packages\Incoding.MetaLanguage.Contrib.1.0.11.1570\lib\net40\Incoding.MetaLanguageContrib.dll</HintPath>
+    </Reference>
+    <Reference Include="JetBrains.Annotations">
+      <HintPath>..\packages\JetBrains.Annotations.7.0\lib\net45\JetBrains.Annotations.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.4.5.11\lib\net40\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="NHibernate">
+      <HintPath>..\packages\NHibernate.3.3.3.4000\lib\Net35\NHibernate.dll</HintPath>
+    </Reference>
+    <Reference Include="StructureMap">
+      <HintPath>..\packages\structuremap.2.6.4.1\lib\net40\StructureMap.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Infrastructure\AmazonConfig.cs" />
+    <Compile Include="Infrastructure\BrowsioAuthorizeAttribute.cs" />
+    <Compile Include="Infrastructure\Bootstrapper.cs" />
+    <Compile Include="Infrastructure\BrowsioApp.cs" />
+    <Compile Include="Infrastructure\ConnectFacebookClient.cs" />
+    <Compile Include="Infrastructure\DateExtension.cs" />
+    <Compile Include="Infrastructure\Configuration\BrowsioConnectorsCfg.cs" />
+    <Compile Include="Infrastructure\Configuration\BrowsioConfiguration.cs" />
+    <Compile Include="Infrastructure\IFullUrlBuilder.cs" />
+    <Compile Include="Infrastructure\IAmazonConfig.cs" />
+    <Compile Include="Infrastructure\IConnectProviderClient.cs" />
+    <Compile Include="Infrastructure\OAuthProvider.cs" />
+    <Compile Include="Infrastructure\IOAuthProvider.cs" />
+    <Compile Include="Infrastructure\OAuthProviderParams.cs" />
+    <Compile Include="Infrastructure\FormAuthentication.cs" />
+    <Compile Include="Infrastructure\GlobalSelector.cs" />
+    <Compile Include="Infrastructure\HttpSessionContext.cs" />
+    <Compile Include="Infrastructure\IFormAuthentication.cs" />
+    <Compile Include="Infrastructure\ISessionContext.cs" />
+    <Compile Include="Operations\Activity\Query\GetActivityQuery.cs" />
+    <Compile Include="Operations\Genre\Command\AddGenreCommand.cs" />
+    <Compile Include="Operations\Genre\Query\GetGenresByCategoryQuery.cs" />
+    <Compile Include="Operations\Product\Command\AddProductCommand.cs" />
+    <Compile Include="Operations\Product\Command\DeleteProductByAsinCommand.cs" />
+    <Compile Include="Operations\Product\Command\EditProductCommand.cs" />
+    <Compile Include="Operations\Product\Query\ProductInWishlistQuery.cs" />
+    <Compile Include="Operations\Product\Query\GetProductByAmazonQuery.cs" />
+    <Compile Include="Operations\Product\Query\GetProductByStoreQuery.cs" />
+    <Compile Include="Operations\Product\Command\IProductCommand.cs" />
+    <Compile Include="Operations\Search\Query\GetStoreIdsByFriends.cs" />
+    <Compile Include="Operations\Search\Query\GetSearchItemsQuery.cs" />
+    <Compile Include="Operations\Search\Query\GetStoreIdsBySearchIdsQuery.cs" />
+    <Compile Include="Operations\Store\Command\AddStoreCommand.cs" />
+    <Compile Include="Operations\Store\Command\AddViewsCommand.cs" />
+    <Compile Include="Operations\Store\Command\AddFollowCommand.cs" />
+    <Compile Include="Operations\Store\Command\DeleteFollowCommand.cs" />
+    <Compile Include="Operations\Store\Command\EditStoreCommand.cs" />
+    <Compile Include="Operations\Store\Command\IStoreCommand.cs" />
+    <Compile Include="Operations\Store\Query\CountLikesQuery.cs" />
+    <Compile Include="Operations\Store\Query\CountWatchesQuery.cs" />
+    <Compile Include="Operations\Store\Query\SearchStoreQuery.cs" />
+    <Compile Include="Operations\Store\Query\GetStoreByIdQuery.cs" />
+    <Compile Include="Operations\Store\Query\GetStoreDetailQuery.cs" />
+    <Compile Include="Operations\Store\Query\GetStoresByTopQuery.cs" />
+    <Compile Include="Operations\Store\Query\GetStoresByUserQuery.cs" />
+    <Compile Include="Operations\Shared\GetImageQuery.cs" />
+    <Compile Include="Operations\User\Command\AddUserCommand.cs" />
+    <Compile Include="Operations\User\Command\AddProductToWishlistCommand.cs" />
+    <Compile Include="Operations\User\Command\SignInFbUserCommand.cs" />
+    <Compile Include="Operations\User\Command\AddUserOnOAuthCommand.cs" />
+    <Compile Include="Operations\User\Command\ConfirUserCommand.cs" />
+    <Compile Include="Operations\User\Command\ChangeUserPasswordCommand.cs" />
+    <Compile Include="Operations\User\Query\GetProductInWishlist.cs" />
+    <Compile Include="Operations\User\Query\GetUserLoginQuery.cs" />
+    <Compile Include="Operations\User\Query\GetFollowersQuery.cs" />
+    <Compile Include="Operations\User\Query\ExistFacebookUserQuery.cs" />
+    <Compile Include="Operations\User\Query\ExistUserByTokenQuery.cs" />
+    <Compile Include="Operations\User\Command\ForgotUserPasswordCommand.cs" />
+    <Compile Include="Operations\User\Command\EditUserCommand.cs" />
+    <Compile Include="Operations\User\Query\GetUserByCredentialQuery.cs" />
+    <Compile Include="Operations\User\Query\GetUserDetailQuery.cs" />
+    <Compile Include="Operations\User\Query\IsUserSocialQuery.cs" />
+    <Compile Include="Operations\Validation\AddUserCommandValidator.cs" />
+    <Compile Include="Operations\Validation\ChangePasswordCommandValidator.cs" />
+    <Compile Include="Operations\Validation\GetProductByAmazonQueryValidator.cs" />
+    <Compile Include="Operations\Validation\EditUserCommandValidator.cs" />
+    <Compile Include="Operations\Validation\StoreCommandValidator.cs" />
+    <Compile Include="Persistences\BrowsioEntityBase.cs" />
+    <Compile Include="Persistences\BrowsioEntityMap.cs" />
+    <Compile Include="Persistences\Activity.cs" />
+    <Compile Include="Persistences\Genre.cs" />
+    <Compile Include="Persistences\IImageEntity.cs" />
+    <Compile Include="Persistences\Product.cs" />
+    <Compile Include="Persistences\SearchItem.cs" />
+    <Compile Include="Persistences\Store.cs" />
+    <Compile Include="Persistences\User.cs" />
+    <Compile Include="Persistences\Views.cs" />
+    <Compile Include="Primitive\CategoryOfType.cs" />
+    <Compile Include="Primitive\ActivityOfType.cs" />
+    <Compile Include="Primitive\SearchItemOfType.cs" />
+    <Compile Include="Primitive\ConnectorOfType.cs" />
+    <Compile Include="Primitive\SexOfType.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Setups\GenreSetUp.cs" />
+    <Compile Include="Setups\UserSetUp.cs" />
+    <Compile Include="Setups\DataBaseSetUp.cs" />
+    <Compile Include="Specifications\Where\ActivityByUserOwner.cs" />
+    <Compile Include="Specifications\Fetch\StoreWithUserFetchSpec.cs" />
+    <Compile Include="Specifications\Where\ViewsByStoreId.cs" />
+    <Compile Include="Specifications\Where\ProductByASINWhereSpec.cs" />
+    <Compile Include="Specifications\Where\ProductByNameOptWhereSpec.cs" />
+    <Compile Include="Specifications\Where\SearchItemByOwnerWhereSpec.cs" />
+    <Compile Include="Specifications\Where\SearchItemByQueryWhereSpec.cs" />
+    <Compile Include="Specifications\Where\StoreByGenreOptWhereSpec.cs" />
+    <Compile Include="Specifications\Fetch\StoreWithGenreFetchSpec.cs" />
+    <Compile Include="Specifications\Where\GenreByCategoryOptWhereSpec.cs" />
+    <Compile Include="Specifications\Where\ProductByStoreWhereSpec.cs" />
+    <Compile Include="Specifications\Where\StoreByCategoryOptWhereSpec.cs" />
+    <Compile Include="Specifications\Where\StoreByIdsOptWhereSpec.cs" />
+    <Compile Include="Specifications\Where\StoreByUserWhereSpec.cs" />
+    <Compile Include="Specifications\Where\UserByFBIdWhereSpec.cs" />
+    <Compile Include="Specifications\Where\UserByResetTokenWhereSpec.cs" />
+    <Compile Include="Specifications\Where\UserByLoginWhereSpec.cs" />
+    <Compile Include="Specifications\Where\UserByPasswordWhereSpec.cs" />
+    <Compile Include="Subscribers\Events\OnActivity.cs" />
+    <Compile Include="Subscribers\Events\OnChangeSearchItemEvent.cs" />
+    <Compile Include="Subscribers\Events\OnSendEmailEvent.cs" />
+    <Compile Include="Subscribers\Impl\ActivitySubscriber.cs" />
+    <Compile Include="Subscribers\Impl\SearchItemSubscriber.cs" />
+    <Compile Include="Subscribers\Impl\SendEmailSubscriber.cs" />
+    <Compile Include="ViewModels\ActivityVm.cs" />
+    <Compile Include="ViewModels\User.cs" />
+    <Compile Include="ViewModels\FacebookUser.cs" />
+    <Compile Include="ViewModels\ISocialUser.cs" />
+    <Compile Include="ViewModels\StoreCarouselVm.cs" />
+    <Compile Include="ViewModels\NotificationVm.cs" />
+    <Compile Include="ViewModels\ProductAmazonVm.cs" />
+    <Compile Include="ViewModels\ProductVm.cs" />
+    <Compile Include="ViewModels\SearchItemVm.cs" />
+    <Compile Include="ViewModels\StoreVm.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Specifications\Order\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Browsio.Amazon\Browsio.Amazon.csproj">
+      <Project>{36DC9544-0F5F-4DA3-AB45-BCF81F7D0A40}</Project>
+      <Name>Browsio.Amazon</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

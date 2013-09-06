@@ -1,0 +1,15 @@
+﻿@using Incoding.Extensions
+@model IStoreCommand
+@Html.ForGroup(r => r.Name).TextBox()
+@Html.ForGroup(r => r.Description).TextArea()
+@Html.ForGroup(r => r.Category).DropDown(control =>
+                                             {
+                                                 control.Input.Url = Url.Action("Fetch", "Category");
+                                                 control.Input.Dependency = Selector.Jquery.Id<IStoreCommand>(command => command.GenreId);
+                                             }) 
+@Html.ForGroup(r => r.GenreId).DropDown(control => { control.Input.Url = Url.Action("Fetch", "Genre", new { Category = Selector.Jquery.Id<IStoreCommand>(command => command.Category) }); })                                             
+@Html.ForGroup(r => r.Image).File()
+<div class="form-actions">
+    <input type="submit" value="Save" class="btn btn-success"/>
+    @Html.Browsio().ButtonBack()     
+</div>

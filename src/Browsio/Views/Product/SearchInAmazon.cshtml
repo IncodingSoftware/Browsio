@@ -1,0 +1,153 @@
+﻿@using Incoding.MetaLanguageContrib
+@model GetProductByAmazonQuery
+@{
+    string searchResultId = Guid.NewGuid().ToString();
+    string tmplId = Guid.NewGuid().ToString();
+
+    using (var template = Html.Incoding().ScriptTemplate<ProductAmazonVm>(tmplId))
+    {
+        using (template.NotEach())
+        {
+            <tr>
+                <td colspan="7">
+                    Not result....
+                </td>
+            </tr>
+        }
+
+        using (var each = template.ForEach())
+        {
+            <tr class="@each.IsInline(r => r.Exist, new MvcHtmlString("has-asin"))">                      
+                <td>
+                    @each.For(r => r.ASIN)
+                </td>
+                <td>
+                    @each.For(r => r.Title)
+                </td> 
+                <td>
+                    @each.For(r => r.Author)
+                </td>                    
+                <td class="col-price">
+                    @each.For(r => r.Amount)
+                </td> 
+                <td class="col-image">
+                    <img src="@each.For(r => r.Image)" class="img-polaroid img-preview"/>
+                </td>
+                <td>
+                    @each.For(r => r.Description)
+                </td>
+                <td class="col-command">               
+                    @{
+                        Func<string, string, object, MvcHtmlString> verbButton = (url, content, attr) => Html.When(JqueryBind.Click)
+                                                                                                             .Do()
+                                                                                                             .AjaxPost(url)
+                                                                                                             .OnBegin(dsl => dsl.With(r => r.Tag(HtmlTag.Table)).JqueryPlugIn().Block.Lock())
+                                                                                                             .OnSuccess(dsl =>
+                                                                                                                            {
+                                                                                                                                dsl.With(r => r.Self().Closest(selector => selector.Tag(HtmlTag.Td)).Find(selector => selector.Tag(HtmlTag.Button)))
+                                                                                                                                   .Core()
+                                                                                                                                   .JQuery.Attributes.ToggleClass("hide");
+
+                                                                                                                                dsl.With(r => r.Self().Closest(selector => selector.Tag(HtmlTag.Tr)))
+                                                                                                                                   .Core()
+                                                                                                                                   .JQuery.Attributes.ToggleClass("has-asin");
+
+                                                                                                                                dsl.Self().JqueryPlugIn().Notification.PinesNoty.Show(options => { options.Text = "Product {0}".F(content); });
+                                                                                                                            })
+                                                                                                             .OnComplete(dsl => dsl.With(r => r.Tag(HtmlTag.Table)).JqueryPlugIn().Block.UnLock())
+                                                                                                             .AsHtmlAttributes(attr)
+                                                                                                             .ToButton(content);
+                    }
+
+                    @verbButton(Url.Action("DeleteByAsin", "Product", new { Asin = each.For(r => r.ASIN) }), "Remove", new { @class = "btn btn-warning {0}".F(each.NotInline(r => r.Exist, new MvcHtmlString("hide"))) })
+                    @verbButton(Url.Action("Add", "Product", new
+                                                                 {
+                                                                         StoreId = Selector.Incoding.HashQueryString("StoreId"), 
+                                                                         Name = each.For(r => r.Title), 
+                                                                         Description = each.For(r => r.Description), 
+                                                                         Price = each.For(r => r.Amount), 
+                                                                         Asin = each.For(r => r.ASIN), 
+                                                                         Author = each.For(r => r.Author), 
+                                                                         ImageUrl = each.For(r => r.Image)
+                                                                 }), "Add", new { @class = "btn btn-success {0}".F(each.IsInline(r => r.Exist, new MvcHtmlString("hide"))) })
+        
+                           
+                 
+                </td>
+            </tr>
+
+            using (each.Is(r => r.IsLast))
+            {
+                <tr>
+                    <td colspan="7">
+                        @(Html.When(JqueryBind.Click)
+                              .Do()
+                              .Direct()
+                              .OnSuccess(dsl =>
+                                             {
+                                                 dsl.With(selector => selector.Id<GetProductByAmazonQuery>(r => r.Page)).Core().JQuery.Func.IncrementVal();
+                                                 dsl.With(selector => selector.Id(searchResultId)).Core().Trigger.Invoke(JqueryBind.None);
+                                                 dsl.With(selector => selector.Self().Closest(jquerySelector => jquerySelector.Tag(HtmlTag.Tr)))
+                                                    .Core()
+                                                    .JQuery.Manipulation.Remove();
+                                             })
+                              .AsHtmlAttributes(new { @class = "btn btn-success btn-block" })
+                              .ToButton("Show more"))
+                    </td>
+                </tr>
+            }
+        }
+    }
+
+}
+
+<div class="form-horizontal">
+ 
+    @Html.For(r => r.Page).Hidden();
+    @Html.ForGroup(r => r.Title).TextBox()
+    
+    <div class="form-actions">
+        @(Html.When(JqueryBind.Click)
+              .DoWithPreventDefault()
+              .Direct()
+              .OnBegin(dsl => dsl.With(selector => selector.Id<GetProductByAmazonQuery>(r => r.Page)).Core().JQuery.Attributes.Val(1))
+              .OnSuccess(dsl => dsl.With(selector => selector.Id(searchResultId))
+                                   .Behaviors(inDsl =>
+                                                  {
+                                                      inDsl.Core().JQuery.Manipulation.Empty();
+                                                      inDsl.Core().Trigger.Invoke(JqueryBind.None);
+                                                  }))
+              .AsHtmlAttributes(new { @class = "btn btn-success" })
+              .ToButton("Search"))        
+        @Html.Browsio().ButtonBack()          
+    </div>
+      
+</div>
+<table class="table table-bordered">
+    <thead>
+        <tr>                    
+            <th>ASIN</th>
+            <th>Name</th>        
+            <th>Author</th>        
+            <th>Amount</th>
+            <th>Description</th>                    
+            <th></th>                    
+            <th></th>
+        </tr>
+    </thead>
+
+    @(Html.When(JqueryBind.None)
+          .Do()
+          .AjaxGet(Url.Action("FetchByAmazon", "Product", new
+                                                              {
+                                                                      StoreId = Selector.Incoding.HashQueryString("StoreId"), 
+                                                                      Page = Selector.Jquery.Id<GetProductByAmazonQuery>(r => r.Page), 
+                                                                      Title = Selector.Jquery.Id<GetProductByAmazonQuery>(r => r.Title)
+                                                              }))
+          .OnBegin(dsl => dsl.With(r => r.Class("table")).JqueryPlugIn().Block.Lock())
+          .OnSuccess(dsl => dsl.Self().Core().Insert.WithTemplate(Selector.Jquery.Id(tmplId)).Append())
+          .OnComplete(dsl => dsl.With(r => r.Class("table")).JqueryPlugIn().Block.UnLock())
+          .AsHtmlAttributes(new { id = searchResultId })
+          .ToTag(HtmlTag.TBody))
+    
+</table>

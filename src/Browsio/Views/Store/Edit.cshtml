@@ -1,0 +1,81 @@
+﻿@using Incoding.Extensions
+@model EditStoreCommand
+
+@using (Html.Browsio().BeginForm(setting =>
+                                     {
+                                         setting.IsBack = true;
+                                         setting.NotificationMessage = "Store update";
+                                         setting.IsUploadForm = true;
+                                     }))
+{
+    <fieldset>
+        <legend>Edit store</legend>
+        @Html.For(r => r.Id).Hidden()
+        @Html.Partial("StoreForm")
+    </fieldset>
+}
+
+@{
+    string tmplId = Guid.NewGuid().ToString();
+    using (var template = Html.Incoding().ScriptTemplate<ProductVm>(tmplId))
+    {
+        <div class="btn-toolbar">
+            <a class="btn btn-primary" href="@Url.Action("Index", "Browsio").SetHash(Url.Action("Add", "Product", new { StoreId = Model.Id }))">
+                Add product
+            </a>   
+             <a class="btn btn-primary" href="@Url.Action("Index", "Browsio").SetHash(Url.Action("SearchInAmazon", "Product", new { StoreId = Model.Id }))">
+                Search in amazon
+            </a>
+        </div>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th class="col-command"></th>
+                    <th>Name</th>                                                       
+                    <th>Asin</th>                                                       
+                    <th class="col-price">Price</th>
+                    <th class="col-image">Image</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                @using (var each = template.ForEach())
+                {
+                    <tr>
+                        <td class="col-command">
+                            @Html.Browsio().ButtonVerb(setting =>
+                                                           {
+                                                               setting.RedirectToSelf = true;
+                                                               setting.Content = "Delete";
+                                                               setting.Notification = "Product delete";
+                                                               setting.Url = Url.Action("Delete", "Dispatcher", new { Id = each.For(r => r.Id), assemblyType = each.For(r => r.AssemblyQualifiedName) });
+                                                           })
+                        </td>
+                        <td>
+                            <a href="@HttpUtility.UrlDecode(Url.Action("Index", "Browsio").SetHash(Url.Action("Edit", "Product", new { Id = each.For(r => r.Id) })))">
+                                @each.For(r => r.Name)
+                            </a>
+                        </td>                  
+                        <td>
+                            @each.For(r => r.Asin)
+                        </td>     
+                           <td class="col-price">
+                            @each.For(r => r.Price)
+                        </td>                
+                        <td class="col-image">
+                            <img src="@HttpUtility.UrlDecode(Url.Action("Img", "Dispatcher", new { Id = @each.For(r => r.Id) , Cache = DateTime.Now.Ticks, Type=SearchItemOfType.Product }))" class="img-polaroid img-preview"/>
+                        </td>                                        
+                        <td>@each.For(r => r.Description)</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+
+}
+
+@Html.Browsio().Load(setting =>
+                         {
+                             setting.Url = Url.Action("Fetch", "Product",new {StoreId = Model.Id});
+                             setting.Template = Selector.Jquery.Id(tmplId);
+                         })

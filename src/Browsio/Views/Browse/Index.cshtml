@@ -1,0 +1,243 @@
+﻿@using Incoding.CQRS
+<div class="slider-block">
+    <div class="slider-inner">
+        @Html.Browsio().Load(setting =>
+                                 {
+                                     setting.Url = Url.Action("FetchByTop", "Store");
+                                     setting.Template = Selector.Incoding.AjaxGet(Url.Action("Get", "Template", new { Name = "Carousel" }));
+                                 })
+    </div>
+</div>
+<div class="clearfix"></div>
+
+
+@{
+    string selectedCategoryName = Guid.NewGuid().ToString();
+    string genreDropDownId = Guid.NewGuid().ToString();
+    string selectedGenreName = Guid.NewGuid().ToString();
+    string searchContainerId = "searchContainerId";
+    string selectedSearchItemId = Guid.NewGuid().ToString();
+    string searchItemTxtId = "searchItemTxtId";
+    string autocompleteResultId = "autocompleteResultId";
+    string searchContainer = "searchContainer";
+}
+
+@Html.Hidden(selectedCategoryName)
+@Html.Hidden(selectedGenreName)
+@Html.Hidden(selectedSearchItemId)
+
+
+<div class="submenu all-stores">
+    <div class="groups">
+        <ul>
+            @{
+                var categories = new[]
+                                     {
+                                             new KeyValueVm(string.Empty, "All stores") { Title = "all-stores" }, 
+                                             new KeyValueVm((int)CategoryOfType.Book, "Books") { Title = "books" }, 
+                                             new KeyValueVm((int)CategoryOfType.VideoGame, "Video games") { Title = "video-games" }, 
+                                             new KeyValueVm((int)CategoryOfType.TVShow, "TV Shows") { Title = "tv-shows" }, 
+                                             new KeyValueVm((int)CategoryOfType.Movie, "Movies") { Title = "movies" }
+                                     };
+            }
+            @foreach (var category in categories)
+            {
+                <li class="@category.Title">
+                    @(Html.When(JqueryBind.Click)
+                          .DoWithPreventDefault()
+                          .Direct()
+                          .OnSuccess(dsl =>
+                                         {
+                                             dsl.With(r => r.Self().Closest(selector => selector.Class("submenu")))
+                                                .Core()
+                                                .JQuery.Attributes.SetAttr(HtmlAttribute.Class, "submenu " + category.Title);
+
+                                             dsl.With(r => r.Self().Closest(selector => selector.Tag(HtmlTag.Ul)).Find(selector => selector.Tag(HtmlTag.Li)))
+                                                .Core()
+                                                .JQuery.Attributes.RemoveClass("active");
+
+                                             dsl.With(r => r.Self().Closest(selector => selector.Tag(HtmlTag.Li)))
+                                                .Core()
+                                                .JQuery.Attributes.AddClass("active");
+
+                                             dsl.With(r => r.Name(selectedCategoryName)).Core().JQuery.Attributes.Val(category.Value);
+                                             dsl.With(r => r.Name(selectedGenreName)).Core().JQuery.Attributes.Val(string.Empty);
+                                             dsl.With(r => r.Name(selectedSearchItemId)).Core().JQuery.Attributes.Val(string.Empty);
+                                             dsl.With(r => r.Id(genreDropDownId)).Core().Trigger.Invoke(JqueryBind.None);
+                                             dsl.With(r => r.Id(searchContainerId)).Core().Trigger.Invoke(JqueryBind.None);
+                                         })
+                          .AsHtmlAttributes()
+                          .ToLink(category.Text))
+                </li>
+            }
+        </ul>
+        @(Html.When(JqueryBind.InitIncoding)
+              .Do()
+              .Direct()
+              .OnSuccess(dsl => dsl.With(r => r.Class("all-stores")).Core().JQuery.Attributes.AddClass("active"))
+              .AsHtmlAttributes()
+              .ToDiv())
+    </div>
+
+    <div class="row categories-menu">
+        <div class="span4 groups">
+            <ul>
+                <li>
+                    @*<a href="#">Friends</a>*@
+                    @(Html.When(JqueryBind.InitIncoding)
+                    .Do()
+                    .AjaxGet(Url.Action("IsSocial","Profile"))
+                            .OnSuccess(dsl =>
+                                           {
+                                               dsl.With(selector => selector.Id("linkFriend")).Core().JQuery.Attributes.AddClass("hide").If(conf => conf.Data<IncStructureResponse<bool>>(data => data.Value == true));
+                                               dsl.With(selector => selector.Id("linkPublic")).Core().JQuery.Attributes.AddClass("hide").If(conf => conf.Data<IncStructureResponse<bool>>(data => data.Value == true));
+                                           })
+                    .AsHtmlAttributes()
+                    .ToI())
+                    @(Html.When(JqueryBind.Click)
+                          .DoWithPreventDefault()
+                          .AjaxGet(Url.Action("IsSocial","Profile"))
+                          .OnSuccess(dsl =>
+                                         {
+                                             dsl.With(selector => selector.Name("friends")).Core().JQuery.Attributes.Val(true);
+                                             dsl.With(selector => selector.Id(searchContainerId)).Core().Trigger.Incoding();
+                                         })
+                          .AsHtmlAttributes(new { href="#", id ="linkFriend"})
+                          .ToLink("Friends"))
+                </li>
+                <li>
+                    @*<a href="#">Public</a>*@
+                    @(Html.When(JqueryBind.Click)
+                    .DoWithPreventDefault()
+                    .Direct()
+                    .OnSuccess(dsl =>
+                                   {
+                                       dsl.With(selector => selector.Name("friends")).Core().JQuery.Attributes.Val("");
+                                       dsl.With(selector => selector.Id(searchContainerId)).Core().Trigger.Incoding();
+                                   })
+                    .AsHtmlAttributes(new { href="#", id ="linkPublic"})
+                    .ToLink("Public"))
+                </li>
+            </ul>
+        </div>
+        <div class="span2 offset1">
+            <div class="dropdown">
+                <a class="btn dropdown-toggle btn-inverse" data-toggle="dropdown" href="#">
+                    All Genres
+                    <span class="caret"></span>
+                </a>
+                @{
+                    string tmplId = Guid.NewGuid().ToString();
+                    Func<string, string, MvcHtmlString> linkGenre = (name, value) => Html.When(JqueryBind.Click)
+                                                                                         .DoWithPreventDefault()
+                                                                                         .Direct()
+                                                                                         .OnSuccess(dsl =>
+                                                                                                        {
+                                                                                                            dsl.With(r => r.Name(selectedGenreName)).Core().JQuery.Attributes.Val(value);
+                                                                                                            string content = "{0} <span class=\"caret\"></span>".F(name);
+                                                                                                            dsl.With(r => r.Class("dropdown-toggle")).Core().JQuery.Manipulation.Html(content);
+                                                                                                            dsl.With(r => r.Id(searchContainerId)).Core().Trigger.Invoke(JqueryBind.None);
+                                                                                                        })
+                                                                                         .AsHtmlAttributes()
+                                                                                         .ToLink(name);
+
+                    using (var template = Html.Incoding().ScriptTemplate<OptGroupVm>(tmplId))
+                    {
+                    <li>
+                        @linkGenre("All Genres", string.Empty)
+                    </li>
+                        using (var each = template.ForEach())
+                        {
+                            using (var item = each.ForEach(r => r.Items))
+                            {
+                    <li>
+                        @linkGenre(item.For(r => r.Text), item.For(r => r.Value))
+                    </li>
+                            }
+                        }
+                    }
+
+                }
+                <ul class="dropdown-menu">
+
+                    @Html.Browsio().Load(setting =>
+                                             {
+                                                 setting.Url = Url.Action("Fetch", "Genre", new { Category = Selector.Jquery.Name(selectedCategoryName) });
+                                                 setting.Template = Selector.Jquery.Id(tmplId);
+                                                 setting.Id = genreDropDownId;
+                                             })
+                </ul>
+            </div>
+        </div>
+        <!-- Search Block -->
+        <div class="span4">
+            <div class="header-search" id="@searchContainer">
+                <form autocomplete="off">
+                    <input name="searchIds" type="hidden" value="" />
+                    <input name="friends" type="hidden" value="" />
+                @(Html.When(JqueryBind.KeyUp).
+                           DoWithPreventDefault()
+                          .Direct()
+                          .OnBegin(dsl => dsl.Self().Core().Break.If(builder => builder.Eval("$(this.self).val().length < 3")))
+                          .OnSuccess(dsl => dsl.With(Selector.Jquery.Id(autocompleteResultId)).Core().Trigger.Invoke("OnSearch"))
+                          .AsHtmlAttributes(new { id = searchItemTxtId, @class = "search", placeholder = "Search here...", style = "margin-bottom: 0px;" })
+                          .ToInput(HtmlInputType.Text, null))
+                @*<input id="@searchItemTxtId" type="text" placeholder="Search here..." />*@
+                @* @(Html.When(JqueryBind.InitIncoding))*@
+                @(Html.When(JqueryBind.Click).DoWithPreventDefault()
+                          .Direct()
+                          .OnSuccess(dsl => dsl.With(r => r.Id(searchContainerId)).Core().Trigger.Invoke(JqueryBind.None))
+                          .AsHtmlAttributes(new { value = "" })
+                          .ToSubmit(""))
+                @*<input type="button" />*@
+                </form>
+                <div class="clearfix"></div>
+                @(Html.When("OnSearch")
+                      .Do()
+                      .AjaxGet(Url.Action("Fetch", "SearchItem", new GetSearchItemsQuery
+                                                                     {
+                                                                         Keyword = Selector.Jquery.Id(searchItemTxtId)
+                                                                     }))
+                      .OnSuccess(dsl =>
+                                     {
+                                         dsl.Self().Core().JQuery.Attributes.RemoveClass("hide");
+                                         dsl.Self().Core().Insert.WithTemplate(Selector.Incoding.AjaxGet(Url.Action("Get", "Template", new { Name = "SearchItemResult" }))).Html();
+                                         dsl.With(selector => selector.Self().Closest(jquerySelector => jquerySelector.Id(searchContainer)))
+                                            .Core().JQuery.Attributes.AddClass("has-result")
+                                            .If(builder => builder.Not.Data<List<SearchItemVm>>(vms => vms.IsEmpty()));
+                                         dsl.With(selector => selector.Self().Closest(jquerySelector => jquerySelector.Id(searchContainer)))
+                                            .Core().JQuery.Attributes.RemoveClass("has-result")
+                                            .If(builder => builder.Data<List<SearchItemVm>>(vms => vms.IsEmpty()));
+                                     })
+                      .AsHtmlAttributes(new { @class = "hide", id = autocompleteResultId })
+                      .ToDiv())
+
+            </div>
+        </div>
+        <!-- End of Search Block -->
+    </div>
+
+</div>
+@(Html.When(JqueryBind.None)
+      .DoWithPreventDefault()
+      .AjaxGet(Url.Action("Search", "Store", new
+                                                 {
+                                                     Category = Selector.Jquery.Name(selectedCategoryName),
+                                                     GenreId = Selector.Jquery.Name(selectedGenreName)
+                                                 }))
+      .OnSuccess(dsl => dsl.With(Selector.Jquery.Id(searchContainerId)).Core().Trigger.Invoke(JqueryBind.None))
+      .AsHtmlAttributes()
+      .ToDiv())
+@Html.Browsio().Load(setting =>
+                         {
+                             setting.Id = searchContainerId;
+                             setting.IsBlock = true;
+                             setting.Url = Url.Action("Search", "Store", new
+                                                                             {
+                                                                                 Category = Selector.Jquery.Name(selectedCategoryName),
+                                                                                 GenreId = Selector.Jquery.Name(selectedGenreName),
+                                                                                 searchIds = Selector.Jquery.Name("searchIds"),
+                                                                                 Friends = Selector.Jquery.Name("friends")
+                                                                             });
+                             setting.Template = Selector.Incoding.AjaxGet(Url.Action("Get", "Template", new { name = "StoreSearch" }));
+                         })

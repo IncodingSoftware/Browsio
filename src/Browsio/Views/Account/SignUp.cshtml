@@ -1,0 +1,54 @@
+﻿@using Incoding.CQRS
+@model AddUserCommand
+
+@using (Html.Browsio().BeginForm(setting =>
+                                     {
+                                         setting.CloseDialog = false;
+                                         setting.ReloadSubmit = true;
+                                     }))
+{
+    <fieldset>
+        <legend>Open Your Store With...</legend>
+        <div class="control-group" id="SignInFacebookTwitter">
+            <div class="text-center">           
+                @(Html.When(JqueryBind.Click)
+                      .DoWithPreventDefault()
+                      .Ajax(setting => setting.Url = Url.Action("AddOAuth", "Connector", new { type = 0 }))                      
+                      .AsHtmlAttributes(new { @class="btn"})
+                      .ToButton("Connect with Facebook"))
+                <input class="btn" type="button" value="Connect with twitter" />
+            </div>
+        </div>
+        @Html.Hidden("fbUid")
+        @(Html.When("fbauthorize")
+      .Do().Event()
+      .OnSuccess(dsl =>
+                     {
+                         dsl.With(selector => selector.Id("fbUid")).Core().Insert.For<IncStructureResponse<string>>(response => response.Value).Val();
+                         dsl.Self().Core().Trigger.Invoke("signin");
+                     })
+      .AsHtmlAttributes(new { id="fbAuthorize" }).ToDiv()
+      )
+        <div class="text-center">or</div>
+        <div >
+            @Html.ForGroup(r => r.Login).TextBox(control =>
+                                                     {
+                                                         control.Input.AddClass("input-xlarge");
+                                                         control.Input.Placeholder = "Please enter your email";
+                                                     })
+            @Html.ForGroup(r => r.Password).Password(control => control.Input.AddClass("input-xlarge"))
+            @Html.ForGroup(r => r.RetryPassword).Password(control => control.Input.AddClass("input-xlarge"))
+            <div>
+                @Html.ValidationMessage("Server")
+            </div>
+            <div class="form-actions">
+                @Html.Incoding().Submit("Sign up", new { @class = "btn btn-success" })
+                @(Html.When(JqueryBind.InitIncoding)
+                      .DoWithPreventDefault()
+                      .Direct()                      
+                      .AsHtmlAttributes().ToDiv())
+            </div>
+        </div>
+    </fieldset>
+}
+

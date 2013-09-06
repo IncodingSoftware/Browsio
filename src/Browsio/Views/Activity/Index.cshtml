@@ -1,0 +1,29 @@
+﻿@{
+    const string tmplActivityId = "tmplActivityId";
+}
+@using (var template = Html.Incoding().ScriptTemplate<ActivityVm>(tmplActivityId))
+{
+    using (var each = template.ForEach())
+    {
+    <div class="row activity">
+        <div class="span1" id="Activity-Type">
+            <img src="@Url.Content("~/Content/images/" + each.For(activity => activity.TypePicture))" width="25" />
+        </div>
+        <div class="span1" id="Activity-Picture">
+            <img src="@HttpUtility.UrlDecode(Url.Action("Img", "Dispatcher", new { Id = each.For(activity => activity.ActivityFromUserId), Type = SearchItemOfType.User }))" width="40" />
+        </div>
+        <div class="span7" id="Activity-Info">
+            <div id="Activity-Title">@each.For(activity => activity.Title)
+                <span>@each.For(activity => activity.ObjectActivity)</span>
+            </div>
+            <div id="Activity-Date">@each.For(activity => activity.Date)</div>
+        </div>
+    </div>
+    }
+}
+@(Html.When(JqueryBind.InitIncoding)
+.Do()
+.AjaxPost(Url.Action("FetchActivity", "Activity"))
+.OnSuccess(dsl => dsl.Self().Core().Insert.WithTemplate(Selector.Jquery.Id(tmplActivityId)).Html())
+.AsHtmlAttributes()
+.ToDiv())

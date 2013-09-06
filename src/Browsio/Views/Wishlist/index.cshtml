@@ -1,0 +1,36 @@
+﻿@{
+    const string tmplProductId = "tmplProductId";
+}
+@using (var template = Html.Incoding().ScriptTemplate<GetProductInWishlist.Response>(tmplProductId))
+{
+
+          <div class="row">
+    @using (var each = template.ForEach())
+    {
+    <div class="span4 wishlist-small-view">
+        <img src="@HttpUtility.UrlDecode(Url.Action("Img", "Dispatcher", new { Id = each.For(r => r.Id), Type = @SearchItemOfType.Product }))">
+        <div class="description">
+            @each.For(r => r.Name)
+        </div>
+        <div class="row-fluid">
+            @*<div class="span6 text-center product-button-bay">Bay</div>*@
+            @using (Html.When(JqueryBind.Click)
+                                    .DoWithPreventDefault()
+                                    .Direct()
+                                    .OnSuccess(dsl => dsl.Utilities.Document.RedirectTo("http://www.amazon.com/gp/product/" + each.For(r => r.Asin) + "?tag=" + BrowsioApp.AmazonStoreId))
+                                    .AsHtmlAttributes(new { @class = "span6 text-center product-button-bay" })
+                                    .ToBeginTag(Html, HtmlTag.Div))
+                        {
+                            <text>Bay</text>
+                        }
+        </div>
+    </div>
+        }
+    </div>
+}
+@(Html.When(JqueryBind.InitIncoding)
+    .Do()
+    .AjaxPost(Url.Action("FetchWishlist", "Wishlist"))
+    .OnSuccess(dsl => dsl.Self().Core().Insert.WithTemplate(Selector.Jquery.Id(tmplProductId)).Html())
+    .AsHtmlAttributes()
+    .ToDiv())

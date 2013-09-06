@@ -1,0 +1,8 @@
+﻿@using Browsio.Contrib
+@using Browsio.Domain
+
+@model Browsio.Domain.NotificationVm
+<div>
+    <p class="text-@Model.Type">@Model.Message</p>
+    @Html.Browsio().DialogClose(JqueryBind.Click, GlobalSelector.DefaultDialogId, new { @class = "btn btn-success" }).ToButton("Ок")
+</div>

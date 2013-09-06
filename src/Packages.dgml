@@ -1,0 +1,178 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<DirectedGraph GraphDirection="LeftToRight" xmlns="http://schemas.microsoft.com/vs/2009/dgml">
+  <Nodes>
+    <Node Id="Browsio.UnitTest" Label="Browsio.UnitTest" Category="Project" />
+    <Node Id="FluentNHibernate 1.3.0.733" Label="FluentNHibernate 1.3.0.733" Category="Package" />
+    <Node Id="FluentValidation-Signed 3.4.6.0" Label="FluentValidation-Signed 3.4.6.0" Category="Package" />
+    <Node Id="Iesi.Collections 3.2.0.4000" Label="Iesi.Collections 3.2.0.4000" Category="Package" />
+    <Node Id="Incoding.MSpecContrib 1.0.101.1005" Label="Incoding.MSpecContrib 1.0.101.1005" Category="Package" />
+    <Node Id="Machine.Specifications 0.5.12" Label="Machine.Specifications 0.5.12" Category="Package" />
+    <Node Id="Moq 4.0.10827" Label="Moq 4.0.10827" Category="Package" />
+    <Node Id="NHibernate 3.3.3.4000" Label="NHibernate 3.3.3.4000" Category="Package" />
+    <Node Id="structuremap 2.6.4.1" Label="structuremap 2.6.4.1" Category="Package" />
+    <Node Id="Browsio.Domain" Label="Browsio.Domain" Category="Project" />
+    <Node Id="FluentNHibernate 1.3.0.733" Label="FluentNHibernate 1.3.0.733" Category="Package" />
+    <Node Id="FluentValidation.MVC3-Signed 3.4.6.0" Label="FluentValidation.MVC3-Signed 3.4.6.0" Category="Package" />
+    <Node Id="FluentValidation-Signed 3.4.6.0" Label="FluentValidation-Signed 3.4.6.0" Category="Package" />
+    <Node Id="Iesi.Collections 3.2.0.4000" Label="Iesi.Collections 3.2.0.4000" Category="Package" />
+    <Node Id="Incoding.Framework 1.0.278.1005" Label="Incoding.Framework 1.0.278.1005" Category="Package" />
+    <Node Id="JetBrains.Annotations 7.0" Label="JetBrains.Annotations 7.0" Category="Package" />
+    <Node Id="NHibernate 3.3.3.4000" Label="NHibernate 3.3.3.4000" Category="Package" />
+    <Node Id="structuremap 2.6.4.1" Label="structuremap 2.6.4.1" Category="Package" />
+    <Node Id="Browsio.UI" Label="Browsio.UI" Category="Project" />
+    <Node Id="FluentNHibernate 1.3.0.733" Label="FluentNHibernate 1.3.0.733" Category="Package" />
+    <Node Id="FluentValidation.MVC3-Signed 3.4.6.0" Label="FluentValidation.MVC3-Signed 3.4.6.0" Category="Package" />
+    <Node Id="FluentValidation-Signed 3.4.6.0" Label="FluentValidation-Signed 3.4.6.0" Category="Package" />
+    <Node Id="Iesi.Collections 3.2.0.4000" Label="Iesi.Collections 3.2.0.4000" Category="Package" />
+    <Node Id="Incoding.Framework 1.0.278.1005" Label="Incoding.Framework 1.0.278.1005" Category="Package" />
+    <Node Id="Incoding.MetaLanguage 1.0.278.1005" Label="Incoding.MetaLanguage 1.0.278.1005" Category="Package" />
+    <Node Id="Incoding.MetaLanguage.Contrib 1.0.11.1570" Label="Incoding.MetaLanguage.Contrib 1.0.11.1570" Category="Package" />
+    <Node Id="JetBrains.Annotations 7.0" Label="JetBrains.Annotations 7.0" Category="Package" />
+    <Node Id="jQuery 1.9.1" Label="jQuery 1.9.1" Category="Package" />
+    <Node Id="jQuery.BlockUI 2.60.1" Label="jQuery.BlockUI 2.60.1" Category="Package" />
+    <Node Id="jQuery.Form 3.28" Label="jQuery.Form 3.28" Category="Package" />
+    <Node Id="jQuery.UI.Combined 1.10.3" Label="jQuery.UI.Combined 1.10.3" Category="Package" />
+    <Node Id="jQuery.Validation 1.9.0.1" Label="jQuery.Validation 1.9.0.1" Category="Package" />
+    <Node Id="Microsoft.AspNet.Mvc 4.0.20710.0" Label="Microsoft.AspNet.Mvc 4.0.20710.0" Category="Package" />
+    <Node Id="Microsoft.AspNet.Mvc.FixedDisplayModes 1.0.0" Label="Microsoft.AspNet.Mvc.FixedDisplayModes 1.0.0" Category="Package" />
+    <Node Id="Microsoft.AspNet.Razor 2.0.20715.0" Label="Microsoft.AspNet.Razor 2.0.20715.0" Category="Package" />
+    <Node Id="Microsoft.AspNet.WebApi 4.0.20710.0" Label="Microsoft.AspNet.WebApi 4.0.20710.0" Category="Package" />
+    <Node Id="Microsoft.AspNet.WebApi.Client 4.0.20710.0" Label="Microsoft.AspNet.WebApi.Client 4.0.20710.0" Category="Package" />
+    <Node Id="Microsoft.AspNet.WebApi.Core 4.0.20710.0" Label="Microsoft.AspNet.WebApi.Core 4.0.20710.0" Category="Package" />
+    <Node Id="Microsoft.AspNet.WebApi.WebHost 4.0.20710.0" Label="Microsoft.AspNet.WebApi.WebHost 4.0.20710.0" Category="Package" />
+    <Node Id="Microsoft.AspNet.WebPages 2.0.20710.0" Label="Microsoft.AspNet.WebPages 2.0.20710.0" Category="Package" />
+    <Node Id="Microsoft.jQuery.Unobtrusive.Validation 2.0.30506.0" Label="Microsoft.jQuery.Unobtrusive.Validation 2.0.30506.0" Category="Package" />
+    <Node Id="Microsoft.Net.Http 2.0.20710.0" Label="Microsoft.Net.Http 2.0.20710.0" Category="Package" />
+    <Node Id="Microsoft.Web.Infrastructure 1.0.0.0" Label="Microsoft.Web.Infrastructure 1.0.0.0" Category="Package" />
+    <Node Id="mustache.js 0.4.1" Label="mustache.js 0.4.1" Category="Package" />
+    <Node Id="Newtonsoft.Json 4.5.11" Label="Newtonsoft.Json 4.5.11" Category="Package" />
+    <Node Id="NHibernate 3.3.3.4000" Label="NHibernate 3.3.3.4000" Category="Package" />
+    <Node Id="Pnotify 1.2.2" Label="Pnotify 1.2.2" Category="Package" />
+    <Node Id="structuremap 2.6.4.1" Label="structuremap 2.6.4.1" Category="Package" />
+    <Node Id="Twitter.Bootstrap 2.3.2" Label="Twitter.Bootstrap 2.3.2" Category="Package" />
+    <Node Id="underscore.js 1.4.4" Label="underscore.js 1.4.4" Category="Package" />
+  </Nodes>
+  <Links>
+    <Link Source="FluentNHibernate 1.3.0.733" Target="NHibernate 3.3.3.4000" Category="Package Dependency" />
+    <Link Source="Incoding.MSpecContrib 1.0.101.1005" Target="Machine.Specifications 0.5.12" Category="Package Dependency" />
+    <Link Source="Incoding.MSpecContrib 1.0.101.1005" Target="Moq 4.0.10827" Category="Package Dependency" />
+    <Link Source="Incoding.MSpecContrib 1.0.101.1005" Target="FluentValidation-Signed 3.4.6.0" Category="Package Dependency" />
+    <Link Source="Incoding.MSpecContrib 1.0.101.1005" Target="FluentNHibernate 1.3.0.733" Category="Package Dependency" />
+    <Link Source="Incoding.MSpecContrib 1.0.101.1005" Target="structuremap 2.6.4.1" Category="Package Dependency" />
+    <Link Source="Incoding.MSpecContrib 1.0.101.1005" Target="NHibernate 3.3.3.4000" Category="Package Dependency" />
+    <Link Source="NHibernate 3.3.3.4000" Target="Iesi.Collections 3.2.0.4000" Category="Package Dependency" />
+    <Link Source="Browsio.UnitTest" Target="FluentNHibernate 1.3.0.733" Category="Installed Package" />
+    <Link Source="Browsio.UnitTest" Target="FluentValidation-Signed 3.4.6.0" Category="Installed Package" />
+    <Link Source="Browsio.UnitTest" Target="Iesi.Collections 3.2.0.4000" Category="Installed Package" />
+    <Link Source="Browsio.UnitTest" Target="Incoding.MSpecContrib 1.0.101.1005" Category="Installed Package" />
+    <Link Source="Browsio.UnitTest" Target="Machine.Specifications 0.5.12" Category="Installed Package" />
+    <Link Source="Browsio.UnitTest" Target="Moq 4.0.10827" Category="Installed Package" />
+    <Link Source="Browsio.UnitTest" Target="NHibernate 3.3.3.4000" Category="Installed Package" />
+    <Link Source="Browsio.UnitTest" Target="structuremap 2.6.4.1" Category="Installed Package" />
+    <Link Source="FluentNHibernate 1.3.0.733" Target="NHibernate 3.3.3.4000" Category="Package Dependency" />
+    <Link Source="FluentValidation.MVC3-Signed 3.4.6.0" Target="FluentValidation-Signed 3.4.6.0" Category="Package Dependency" />
+    <Link Source="Incoding.Framework 1.0.278.1005" Target="structuremap 2.6.4.1" Category="Package Dependency" />
+    <Link Source="Incoding.Framework 1.0.278.1005" Target="NHibernate 3.3.3.4000" Category="Package Dependency" />
+    <Link Source="Incoding.Framework 1.0.278.1005" Target="FluentNHibernate 1.3.0.733" Category="Package Dependency" />
+    <Link Source="Incoding.Framework 1.0.278.1005" Target="FluentValidation-Signed 3.4.6.0" Category="Package Dependency" />
+    <Link Source="Incoding.Framework 1.0.278.1005" Target="FluentValidation.MVC3-Signed 3.4.6.0" Category="Package Dependency" />
+    <Link Source="Incoding.Framework 1.0.278.1005" Target="JetBrains.Annotations 7.0" Category="Package Dependency" />
+    <Link Source="NHibernate 3.3.3.4000" Target="Iesi.Collections 3.2.0.4000" Category="Package Dependency" />
+    <Link Source="Browsio.Domain" Target="FluentNHibernate 1.3.0.733" Category="Installed Package" />
+    <Link Source="Browsio.Domain" Target="FluentValidation.MVC3-Signed 3.4.6.0" Category="Installed Package" />
+    <Link Source="Browsio.Domain" Target="FluentValidation-Signed 3.4.6.0" Category="Installed Package" />
+    <Link Source="Browsio.Domain" Target="Iesi.Collections 3.2.0.4000" Category="Installed Package" />
+    <Link Source="Browsio.Domain" Target="Incoding.Framework 1.0.278.1005" Category="Installed Package" />
+    <Link Source="Browsio.Domain" Target="JetBrains.Annotations 7.0" Category="Installed Package" />
+    <Link Source="Browsio.Domain" Target="NHibernate 3.3.3.4000" Category="Installed Package" />
+    <Link Source="Browsio.Domain" Target="structuremap 2.6.4.1" Category="Installed Package" />
+    <Link Source="FluentNHibernate 1.3.0.733" Target="NHibernate 3.3.3.4000" Category="Package Dependency" />
+    <Link Source="FluentValidation.MVC3-Signed 3.4.6.0" Target="FluentValidation-Signed 3.4.6.0" Category="Package Dependency" />
+    <Link Source="Incoding.Framework 1.0.278.1005" Target="structuremap 2.6.4.1" Category="Package Dependency" />
+    <Link Source="Incoding.Framework 1.0.278.1005" Target="NHibernate 3.3.3.4000" Category="Package Dependency" />
+    <Link Source="Incoding.Framework 1.0.278.1005" Target="FluentNHibernate 1.3.0.733" Category="Package Dependency" />
+    <Link Source="Incoding.Framework 1.0.278.1005" Target="FluentValidation-Signed 3.4.6.0" Category="Package Dependency" />
+    <Link Source="Incoding.Framework 1.0.278.1005" Target="FluentValidation.MVC3-Signed 3.4.6.0" Category="Package Dependency" />
+    <Link Source="Incoding.Framework 1.0.278.1005" Target="JetBrains.Annotations 7.0" Category="Package Dependency" />
+    <Link Source="Incoding.MetaLanguage 1.0.278.1005" Target="Newtonsoft.Json 4.5.11" Category="Package Dependency" />
+    <Link Source="Incoding.MetaLanguage 1.0.278.1005" Target="NHibernate 3.3.3.4000" Category="Package Dependency" />
+    <Link Source="Incoding.MetaLanguage 1.0.278.1005" Target="FluentNHibernate 1.3.0.733" Category="Package Dependency" />
+    <Link Source="Incoding.MetaLanguage 1.0.278.1005" Target="FluentValidation-Signed 3.4.6.0" Category="Package Dependency" />
+    <Link Source="Incoding.MetaLanguage 1.0.278.1005" Target="FluentValidation.MVC3-Signed 3.4.6.0" Category="Package Dependency" />
+    <Link Source="Incoding.MetaLanguage 1.0.278.1005" Target="JetBrains.Annotations 7.0" Category="Package Dependency" />
+    <Link Source="Incoding.MetaLanguage 1.0.278.1005" Target="jQuery 1.9.1" Category="Package Dependency" />
+    <Link Source="Incoding.MetaLanguage 1.0.278.1005" Target="Microsoft.jQuery.Unobtrusive.Validation 2.0.30506.0" Category="Package Dependency" />
+    <Link Source="Incoding.MetaLanguage 1.0.278.1005" Target="jQuery.Validation 1.9.0.1" Category="Package Dependency" />
+    <Link Source="Incoding.MetaLanguage 1.0.278.1005" Target="jQuery.Form 3.28" Category="Package Dependency" />
+    <Link Source="Incoding.MetaLanguage 1.0.278.1005" Target="underscore.js 1.4.4" Category="Package Dependency" />
+    <Link Source="Incoding.MetaLanguage 1.0.278.1005" Target="mustache.js 0.4.1" Category="Package Dependency" />
+    <Link Source="Incoding.MetaLanguage.Contrib 1.0.11.1570" Target="Incoding.MetaLanguage 1.0.278.1005" Category="Package Dependency" />
+    <Link Source="Incoding.MetaLanguage.Contrib 1.0.11.1570" Target="jQuery.UI.Combined 1.10.3" Category="Package Dependency" />
+    <Link Source="Incoding.MetaLanguage.Contrib 1.0.11.1570" Target="jQuery.BlockUI 2.60.1" Category="Package Dependency" />
+    <Link Source="Incoding.MetaLanguage.Contrib 1.0.11.1570" Target="Pnotify 1.2.2" Category="Package Dependency" />
+    <Link Source="jQuery.BlockUI 2.60.1" Target="jQuery 1.9.1" Category="Package Dependency" />
+    <Link Source="jQuery.Form 3.28" Target="jQuery 1.9.1" Category="Package Dependency" />
+    <Link Source="jQuery.UI.Combined 1.10.3" Target="jQuery 1.9.1" Category="Package Dependency" />
+    <Link Source="jQuery.Validation 1.9.0.1" Target="jQuery 1.9.1" Category="Package Dependency" />
+    <Link Source="Microsoft.AspNet.Mvc 4.0.20710.0" Target="Microsoft.AspNet.WebPages 2.0.20710.0" Category="Package Dependency" />
+    <Link Source="Microsoft.AspNet.Mvc 4.0.20710.0" Target="Microsoft.AspNet.Razor 2.0.20715.0" Category="Package Dependency" />
+    <Link Source="Microsoft.AspNet.Mvc.FixedDisplayModes 1.0.0" Target="Microsoft.AspNet.Mvc 4.0.20710.0" Category="Package Dependency" />
+    <Link Source="Microsoft.AspNet.WebApi 4.0.20710.0" Target="Microsoft.AspNet.WebApi.WebHost 4.0.20710.0" Category="Package Dependency" />
+    <Link Source="Microsoft.AspNet.WebApi.Client 4.0.20710.0" Target="Microsoft.Net.Http 2.0.20710.0" Category="Package Dependency" />
+    <Link Source="Microsoft.AspNet.WebApi.Client 4.0.20710.0" Target="Newtonsoft.Json 4.5.11" Category="Package Dependency" />
+    <Link Source="Microsoft.AspNet.WebApi.Core 4.0.20710.0" Target="Microsoft.AspNet.WebApi.Client 4.0.20710.0" Category="Package Dependency" />
+    <Link Source="Microsoft.AspNet.WebApi.WebHost 4.0.20710.0" Target="Microsoft.Web.Infrastructure 1.0.0.0" Category="Package Dependency" />
+    <Link Source="Microsoft.AspNet.WebApi.WebHost 4.0.20710.0" Target="Microsoft.AspNet.WebApi.Core 4.0.20710.0" Category="Package Dependency" />
+    <Link Source="Microsoft.AspNet.WebPages 2.0.20710.0" Target="Microsoft.Web.Infrastructure 1.0.0.0" Category="Package Dependency" />
+    <Link Source="Microsoft.AspNet.WebPages 2.0.20710.0" Target="Microsoft.AspNet.Razor 2.0.20715.0" Category="Package Dependency" />
+    <Link Source="Microsoft.jQuery.Unobtrusive.Validation 2.0.30506.0" Target="jQuery.Validation 1.9.0.1" Category="Package Dependency" />
+    <Link Source="NHibernate 3.3.3.4000" Target="Iesi.Collections 3.2.0.4000" Category="Package Dependency" />
+    <Link Source="Pnotify 1.2.2" Target="Twitter.Bootstrap 2.3.2" Category="Package Dependency" />
+    <Link Source="Twitter.Bootstrap 2.3.2" Target="jQuery 1.9.1" Category="Package Dependency" />
+    <Link Source="Browsio.UI" Target="FluentNHibernate 1.3.0.733" Category="Installed Package" />
+    <Link Source="Browsio.UI" Target="FluentValidation.MVC3-Signed 3.4.6.0" Category="Installed Package" />
+    <Link Source="Browsio.UI" Target="FluentValidation-Signed 3.4.6.0" Category="Installed Package" />
+    <Link Source="Browsio.UI" Target="Iesi.Collections 3.2.0.4000" Category="Installed Package" />
+    <Link Source="Browsio.UI" Target="Incoding.Framework 1.0.278.1005" Category="Installed Package" />
+    <Link Source="Browsio.UI" Target="Incoding.MetaLanguage 1.0.278.1005" Category="Installed Package" />
+    <Link Source="Browsio.UI" Target="Incoding.MetaLanguage.Contrib 1.0.11.1570" Category="Installed Package" />
+    <Link Source="Browsio.UI" Target="JetBrains.Annotations 7.0" Category="Installed Package" />
+    <Link Source="Browsio.UI" Target="jQuery 1.9.1" Category="Installed Package" />
+    <Link Source="Browsio.UI" Target="jQuery.BlockUI 2.60.1" Category="Installed Package" />
+    <Link Source="Browsio.UI" Target="jQuery.Form 3.28" Category="Installed Package" />
+    <Link Source="Browsio.UI" Target="jQuery.UI.Combined 1.10.3" Category="Installed Package" />
+    <Link Source="Browsio.UI" Target="jQuery.Validation 1.9.0.1" Category="Installed Package" />
+    <Link Source="Browsio.UI" Target="Microsoft.AspNet.Mvc 4.0.20710.0" Category="Installed Package" />
+    <Link Source="Browsio.UI" Target="Microsoft.AspNet.Mvc.FixedDisplayModes 1.0.0" Category="Installed Package" />
+    <Link Source="Browsio.UI" Target="Microsoft.AspNet.Razor 2.0.20715.0" Category="Installed Package" />
+    <Link Source="Browsio.UI" Target="Microsoft.AspNet.WebApi 4.0.20710.0" Category="Installed Package" />
+    <Link Source="Browsio.UI" Target="Microsoft.AspNet.WebApi.Client 4.0.20710.0" Category="Installed Package" />
+    <Link Source="Browsio.UI" Target="Microsoft.AspNet.WebApi.Core 4.0.20710.0" Category="Installed Package" />
+    <Link Source="Browsio.UI" Target="Microsoft.AspNet.WebApi.WebHost 4.0.20710.0" Category="Installed Package" />
+    <Link Source="Browsio.UI" Target="Microsoft.AspNet.WebPages 2.0.20710.0" Category="Installed Package" />
+    <Link Source="Browsio.UI" Target="Microsoft.jQuery.Unobtrusive.Validation 2.0.30506.0" Category="Installed Package" />
+    <Link Source="Browsio.UI" Target="Microsoft.Net.Http 2.0.20710.0" Category="Installed Package" />
+    <Link Source="Browsio.UI" Target="Microsoft.Web.Infrastructure 1.0.0.0" Category="Installed Package" />
+    <Link Source="Browsio.UI" Target="mustache.js 0.4.1" Category="Installed Package" />
+    <Link Source="Browsio.UI" Target="Newtonsoft.Json 4.5.11" Category="Installed Package" />
+    <Link Source="Browsio.UI" Target="NHibernate 3.3.3.4000" Category="Installed Package" />
+    <Link Source="Browsio.UI" Target="Pnotify 1.2.2" Category="Installed Package" />
+    <Link Source="Browsio.UI" Target="structuremap 2.6.4.1" Category="Installed Package" />
+    <Link Source="Browsio.UI" Target="Twitter.Bootstrap 2.3.2" Category="Installed Package" />
+    <Link Source="Browsio.UI" Target="underscore.js 1.4.4" Category="Installed Package" />
+  </Links>
+  <Categories>
+    <Category Id="Project" />
+    <Category Id="Package" />
+  </Categories>
+  <Styles>
+    <Style TargetType="Node" GroupLabel="Project" ValueLabel="True">
+      <Condition Expression="HasCategory('Project')" />
+      <Setter Property="Background" Value="Blue" />
+    </Style>
+    <Style TargetType="Link" GroupLabel="Package Dependency" ValueLabel="True">
+      <Condition Expression="HasCategory('Package Dependency')" />
+      <Setter Property="Background" Value="Yellow" />
+    </Style>
+  </Styles>
+</DirectedGraph>

@@ -1,0 +1,63 @@
+﻿@using Incoding.MetaLanguageContrib
+@model Incoding.CQRS.IncStructureResponse<bool>
+@using (var template = Html.Incoding().Template<ProductVm>())
+    {
+    <div class="row-fluid">
+        @using (var each = template.ForEach())
+        {
+            <div class="span4 store-small-view">
+                <img class="" src="@HttpUtility.UrlDecode(Url.Action("Img", "Dispatcher", new { Id = each.For(r => r.Id), Type = @SearchItemOfType.Product }))"/>
+                <div class="description">
+                    @each.For(r => r.Name)
+                    <small>by: @each.For(r => r.Author)</small>
+                    @if (Model.Value)
+                    {                        
+                        <div>
+                            <a class="pull-right icon-pencil" href="@HttpUtility.UrlDecode(Url.Action("Index", "Browsio").SetHash(Url.Action("Edit", "Product", new { Id = each.For(r => r.Id) })))"></a>
+                            @(Html.When(JqueryBind.Click)
+                                      .DoWithPreventDefault()
+                                      .AjaxPost(HttpUtility.UrlDecode(Url.Action("Delete", "Dispatcher", new { Id = each.For(r => r.Id), assemblyType = each.For(r => r.AssemblyQualifiedName) })))
+                                      .OnSuccess(dsl =>
+                                                     {
+                                                         dsl.With(r => r.Self().Closest(selector => selector.Class("store-small-view")))
+                                                            .Core()
+                                                            .JQuery.Manipulation.Remove();
+                                                         dsl.Self().JqueryPlugIn().Notification.PinesNoty.Show(options => options.Text = "Product remove");
+                                                     })
+                                      .AsHtmlAttributes(new { @class = "pull-right icon-remove" })
+                                      .ToLink(string.Empty))
+                        </div>
+                    }
+                </div>
+                @if (!Model.Value)
+                {
+                    @*<div class="form-actions">
+                        <button class="btn"></button>
+                        <button class="btn"></button>
+                    </div>*@
+                    <div class="row-fluid">
+                        @*<div class="span6 text-center product-button-bay">Bay</div>*@
+                        @using (Html.When(JqueryBind.Click)
+                                    .DoWithPreventDefault()
+                                    .Direct()
+                                    .OnSuccess(dsl => dsl.Utilities.Document.RedirectTo("http://www.amazon.com/gp/product/"+each.For(r=>r.Asin) + "?tag=" + BrowsioApp.AmazonStoreId))
+                                    .AsHtmlAttributes(new { @class = "span6 text-center product-button-bay" })
+                                    .ToBeginTag(Html, HtmlTag.Div))
+                        {
+                            <text>Bay</text>
+                        }
+                        @using(Html.When(JqueryBind.Click)
+                                    .DoWithPreventDefault()
+                                    .AjaxPost(Url.Action("AddProductToWishList", "Wishlist", new { ProductId = each.For(r => r.Id) }))
+                                    .OnSuccess(dsl => dsl.Self().Core().JQuery.Attributes.AddClass("hide"))
+                                    .AsHtmlAttributes(new { @class = "span6 text-center product-button-wishlist" + each.IsInline(r => r.IsAddWishList, new MvcHtmlString(" hide")) })
+                                    .ToBeginTag(Html, HtmlTag.Div))
+                        {
+                            <text>Add to WishList</text>
+                        }
+                    </div>   
+                }
+            </div>
+        }
+    </div>
+    }

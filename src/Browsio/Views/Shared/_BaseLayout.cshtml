@@ -1,0 +1,44 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="ru-Ru">
+    <head>
+        <title>@ViewBag.Title</title>
+        <!--  SEO STUFF END -->
+        <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+       <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,400italic,600,600italic,700,700italic" rel="stylesheet" type="text/css" />
+
+        <link rel="stylesheet" href="@Url.Content("~/Content/bootstrap.min.css")" />
+        <link rel="stylesheet" href="@Url.Content("~/Content/bootstrap-responsive.min.css")" />
+        <link rel="stylesheet" href="@Url.Content("~/Content/themes/base/jquery.ui.all.css")" />
+        <link rel="stylesheet" href="@Url.Content("~/Content/jquery.pnotify.css")" />
+        <link rel="stylesheet" href="@Url.Content("~/Content/jquery.pnotify.icons.css")" />
+
+        <link rel="stylesheet" href="@Url.Content("~/Content/browsio.css")" />
+        <link rel="stylesheet" href="@Url.Content("~/Content/browsio.bootstrapp.css")" />
+
+        <script type="text/javascript" src="@Url.Content("~/Scripts/jquery-1.9.1.min.js")"> </script>
+        <script type="text/javascript" src="@Url.Content("~/Scripts/underscore.min.js")"> </script>
+        <script type="text/javascript" src="@Url.Content("~/Scripts/bootstrap.min.js")"> </script>
+        <script type="text/javascript" src="@Url.Content("~/Scripts/jquery-ui-1.10.3.min.js")"> </script>
+        <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.blockUI.js")"> </script>
+        <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.form.js")"> </script>
+        <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.history.js")"> </script>
+        <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.pnotify.min.js")"> </script>
+        <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.validate.min.js")"> </script>
+        <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")"> </script>
+        <script type="text/javascript" src="@Url.Content("~/Scripts/mustache.js")"> </script>
+        
+        
+
+        <script type="text/javascript" src="@Url.Content("~/Scripts/incoding.framework.js")"> </script>
+        <script type="text/javascript" src="@Url.Content("~/Scripts/incoding.meta.language.contrib.js")"> </script>
+    </head>
+    @Html.Incoding().RenderDropDownTemplate()
+    <body>
+        @RenderBody()
+    </body>
+</html>

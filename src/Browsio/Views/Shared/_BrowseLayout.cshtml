@@ -1,0 +1,64 @@
+﻿@using Incoding.Block.IoC
+@{
+    Layout = "_BaseLayout.cshtml";
+}
+
+<div id="@GlobalSelector.DefaultDialogId"></div>
+<!-- HEADER -->
+<div class="navbar navbar-fixed-top regular">
+    <div class="navbar-inner">
+        <div class="container">
+            <button data-target=".nav-collapse" data-toggle="collapse" class="btn btn-navbar" type="button">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="@Url.Action("Index", "Browsio").SetHash(Url.Action("Index","Browse"))" class="brand">                                
+            </a>
+            <div class="nav-collapse collapse">
+                <div class="row">
+                    @if (IoCFactory.Instance.TryResolve<IFormAuthentication>().IsAuthentication())
+                    {
+                        @Html.Partial("Controls/ProfileHeader")
+                    }
+                    else
+                    {
+                        @Html.Partial("Controls/SignInHeader")
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- END OF HEADER -->
+<!-- CONTENT -->
+
+<div class="container regular">
+    <!-- White spacing -->
+    <div class="white-spacing regular top"></div>
+    <!-- End of White Spacing-->
+    @RenderBody()
+    <!-- White Spacing -->
+    <div class="white-spacing regular bottom"></div>
+    <!-- End of White Spacing-->
+</div>
+<!-- END OF CONTENT-->
+<!-- FOOTER-->
+<div class="footer regular">
+    <p>
+        <a href="#">About Us</a>
+        <a href="#">Contact</a>
+        <a href="#">Terms and Conditions</a>
+    </p>
+</div>
+<!-- END OF FOOTER -->
+@(Html.When(JqueryBind.IncInsert)
+      .Do()
+      .Direct()
+      .OnSuccess(dsl =>
+                     {
+                         dsl.Self().Core().Eval("$('.dropdown-toggle').dropdown()");
+                         dsl.Self().Core().Eval("$('.carousel').carousel()");
+                     })
+      .AsHtmlAttributes()
+      .ToDiv())

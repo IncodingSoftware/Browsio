@@ -1,0 +1,140 @@
+﻿@using Incoding.Block.IoC
+@using Incoding.CQRS
+@using Incoding.MetaLanguageContrib
+@model GetUserDetailQuery.Response
+@{
+    string stoteDetialContainerId = "stoteDetialContainerId";
+}
+
+@{
+    string detailTmplId = "detailTmplId";
+    using (var template = Html.Incoding().ScriptTemplate<GetStoreDetailQuery.Response>(detailTmplId))
+    {
+        using (var each = template.ForEach())
+        {
+    <div class="store-large-view">
+        <div>
+            <img src="@HttpUtility.UrlDecode(Url.Action("Img", "Dispatcher", new { Id = each.For(r => r.Id), Type = @SearchItemOfType.Store }))" class="pull-left"/>
+            <div class="pull-left text-content">
+                <h3>
+                    @each.For(r => r.Name)
+                </h3>
+                <p class="owner">
+                    <span>owner: </span>
+                    <a href="@HttpUtility.UrlDecode(Url.Action("Index", "Browsio").SetHash(Url.Action("Detail", "Profile", new GetUserDetailQuery
+                                                                                                                                       {
+                                                                                                                                           Id = each.For(r => r.UserId),
+                                                                                                                                           SelectedStoreId = each.For(r => r.Id)
+                                                                                                                                       })))">
+                        @each.For(r => r.User)
+                    </a>
+                </p>
+                <p>
+                    @(Html.When(JqueryBind.InitIncoding)
+                    .Do()
+                    .AjaxPost(Url.Action("Watches", "Store", new { StoreId = each.For(r => r.Id) }))
+                    .OnSuccess(dsl => dsl.Self().Core().Insert.For<IncStructureResponse<int>>(val => val.Value).Text())
+                    .AsHtmlAttributes(new { @class = "watches" })
+                    .ToLink(""))
+                    @*<a href="#" class="watches">12,315</a>*@
+                    @(Html.When(JqueryBind.InitIncoding)
+                    .Do()
+                    .AjaxPost(Url.Action("LikesThisStore", "Store", new { StoreId = each.For(r => r.Id) }))
+                    .OnSuccess(dsl => dsl.Self().Core().Insert.For<IncStructureResponse<int>>(val => val.Value).Text())
+                    .AsHtmlAttributes(new { @class = "likes", id = "likes" })
+                    .ToLink(""))
+                    @*<a href="#" class="likes">3,435</a>*@
+                </p>
+                <span class="description">@each.For(r => r.Description)</span>
+                <div>
+                    @if (!Model.IsOwner)
+                    {
+                        @(Html.When(JqueryBind.Click)
+                                   .DoWithPreventDefault()
+                                   .AjaxHashPost(Url.Action("FollowThisStore", "Store", new { UserId = each.For(r => r.VisitorUserId), StoreId = each.For(r => r.Id), }))
+                                   .OnSuccess(dsl =>
+                                                  {
+                                                      dsl.Self().Core().JQuery.Attributes.AddClass("hide");
+                                                      dsl.With(Selector.Jquery.Id("UnfollowButton")).Core().JQuery.Attributes.RemoveClass("hide");
+                                                      dsl.With(Selector.Jquery.Id("likes")).Core().Trigger.Incoding();
+                                                      dsl.With(Selector.Jquery.Id("Followers")).Core().Trigger.Incoding();
+
+                                                  })
+                                   .AsHtmlAttributes(new { @class = "btn " + each.IsInline(r => r.IsUserFollow, new MvcHtmlString("hide")), id = "FollowButton" })
+                                   .ToButton("Follow This Store"))
+
+                        @(Html.When(JqueryBind.Click)
+                                   .DoWithPreventDefault()
+                                   .AjaxHashPost(Url.Action("UnFollowThisStore", "Store", new { UserId = each.For(r => r.VisitorUserId), StoreId = each.For(r => r.Id) }))
+                                   .OnSuccess(dsl =>
+                                                  {
+                                                      dsl.Self().Core().JQuery.Attributes.AddClass("hide");
+                                                      dsl.With(Selector.Jquery.Id("FollowButton")).Core().JQuery.Attributes.RemoveClass("hide");
+                                                      dsl.With(Selector.Jquery.Id("likes")).Core().Trigger.Incoding();
+                                                      dsl.With(Selector.Jquery.Id("Followers")).Core().Trigger.Incoding();
+                                                  })
+                                   .AsHtmlAttributes(new { @class = "btn " + each.NotInline(r => r.IsUserFollow, new MvcHtmlString("hide")), id = "UnfollowButton" })
+                                   .ToButton("Unfollow"))
+                    }
+@*<button class="btn">Follow This Store</button>*@
+                </div>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+        @if (Model.IsOwner)
+        {
+            <a href="@HttpUtility.UrlDecode(Url.Action("Index", "Browsio").SetHash(Url.Action("Edit", "Store", new GetStoreByIdQuery { Id = each.For(r => r.Id) })))" class="icon-pencil pull-right"></a>
+            @(Html.When(JqueryBind.Click)
+                          .DoWithPreventDefault()
+                          .AjaxPost(HttpUtility.UrlDecode(Url.Action("Delete", "Dispatcher", new { Id = each.For(r => r.Id), assemblyType = typeof(Store).AssemblyQualifiedName })))
+                          .OnSuccess(dsl =>
+                                         {
+                                             dsl.Utilities.Document.RedirectTo(Url.Action("Index", "Browsio").SetHash(Url.Action("Detail", "Profile")));
+                                             dsl.Self().JqueryPlugIn().Notification.PinesNoty.Show(options => options.Text = "Store remove");
+                                         })
+                          .AsHtmlAttributes(new { @class = "pull-right icon-remove" })
+                          .ToLink(string.Empty))
+        }
+    </div>
+    <!-- Search block -->
+    <div class="row-fluid">
+        <div class="span6 offset3">
+            @{
+        string contentSearchId = Guid.NewGuid().ToString();
+        string productResultId = "productResultId";
+            }
+            <div class="content-search">
+                <input id="@contentSearchId" type="text" placeholder="Search for products for your store" />
+                @(Html.When(JqueryBind.Click)
+                              .Do()
+                              .Direct()
+                              .OnSuccess(dsl => dsl.With(selector => selector.Id(productResultId)).Core().Trigger.Invoke(JqueryBind.None))
+                              .AsHtmlAttributes()
+                              .ToInput(HtmlInputType.Button, string.Empty))
+            </div>
+        </div>
+    </div>
+    <!-- End of Search block -->
+    @Html.Browsio().Load(setting =>
+                                     {
+                                         setting.Id = productResultId;
+                                         setting.Url = Url.Action("Fetch", "Product", new GetProductByStoreQuery
+                                                                                          {
+                                                                                              StoreId = each.For(r => r.Id),
+                                                                                              Content = Selector.Jquery.Id(contentSearchId)
+                                                                                          });
+                                         setting.Template = Selector.Incoding.AjaxGet(Url.Action("Template", "Product", new { isOwner = Model.IsOwner}));
+                                         setting.IsBlock = true;
+                                     })
+        }
+    }
+
+}
+<div class="container">
+    <div class="row">
+        @Html.Partial("~/Views/Profile/UserPanel.cshtml", Model)
+        <div class="span9">
+            <div id="@stoteDetialContainerId"></div>
+        </div>
+    </div>
+</div>

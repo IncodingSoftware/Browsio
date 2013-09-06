@@ -1,0 +1,63 @@
+﻿@{
+    using (var template = Html.Incoding().Template<StoreCarouselVm>())
+    {
+        <div class="carousel slide">
+
+            <!-- Carousel items -->
+            <div class="carousel-inner"> 
+    
+                @using (var each = template.ForEach())
+                {
+                    <div class="item @each.IsInline(r => r.IsFirst, new MvcHtmlString("active"))">
+                        <img src="@HttpUtility.UrlDecode(Url.Action("Img", "Dispatcher", new { Id = @each.For(r => r.Id), Cache = DateTime.Now.Ticks , Type=@SearchItemOfType.Store }))" class="img-rounded"/>
+                        <div class="carousel-caption">
+                            <h4>
+                                @each.For(r => r.Name)                                
+                            </h4>                                                                                    
+                            <div>
+                                <span class="pull-left">
+                                    owner: @each.For(r => r.User)
+                                </span>
+                                <a class="btn btn-link pull-right" href="@HttpUtility.UrlDecode(Url.Action("Index", "Browsio").SetHash(Url.Action("Detail", "Profile", new GetUserDetailQuery
+                                                                                                                                                                           {
+                                                                                                                                                                                   Id = each.For(r => r.UserId), 
+                                                                                                                                                                                   SelectedStoreId = each.For(r => r.Id)
+                                                                                                                                                                           })))">
+                                    View store
+                                    <i class="icon-arrow-right"></i>
+                                </a>  
+                            </div>                         
+                        </div>                        
+                    </div>
+                }
+            </div>
+            <!-- Carousel nav -->
+            @using (Html.When(JqueryBind.Click)
+                        .Do()
+                        .Direct()
+                        .OnSuccess(dsl => dsl.Self().Core().Eval("$('.carousel').carousel('prev')"))
+                        .AsHtmlAttributes(new { @class = "carousel-control left" })
+                        .ToBeginTag(Html, HtmlTag.A))
+            {
+                <span>
+                    &lsaquo;
+                </span>
+            }    
+            
+            
+            @using (Html.When(JqueryBind.Click)
+                        .Do()
+                        .Direct()
+                        .OnSuccess(dsl => dsl.Self().Core().Eval("$('.carousel').carousel('next')"))
+                        .AsHtmlAttributes(new { @class = "carousel-control right" })
+                        .ToBeginTag(Html, HtmlTag.A))
+            {
+                <span>
+                    &rsaquo;
+                </span>
+            }
+             
+        </div>
+    }
+
+}

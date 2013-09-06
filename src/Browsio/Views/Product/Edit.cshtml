@@ -1,0 +1,15 @@
+﻿@model EditProductCommand
+
+@using (Html.Browsio().BeginForm(setting =>
+                                     {
+                                         setting.IsBack = true;
+                                         setting.NotificationMessage = "Product save";
+                                         setting.IsUploadForm = true;
+                                     }))
+{
+    <fieldset>
+        <legend>Edit product</legend>
+        @Html.HiddenFor(r => r.Id)
+        @Html.Partial("ProductForm")
+    </fieldset>
+}

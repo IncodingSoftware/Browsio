@@ -1,0 +1,11 @@
+﻿@model IProductCommand
+@Html.ForGroup(r => r.Name).TextBox()
+@Html.ForGroup(r => r.Author).TextBox()
+@Html.ForGroup(r => r.Description).TextArea()
+@Html.ForGroup(r => r.Price).TextBox()                                             
+@Html.ForGroup(r => r.Asin).TextBox()                                             
+@Html.ForGroup(r => r.Image).File()
+<div class="form-actions">
+    <input type="submit" value="Save" class="btn btn-success"/>
+    @Html.Browsio().ButtonBack()
+</div>

@@ -1,0 +1,12 @@
+﻿@{
+    ViewBag.Title = Model.Title;
+    Layout = "~/Views/Shared/_LandingLayout.cshtml";
+}
+
+@model Browsio.Domain.NotificationVm
+<div class="white-spacing"></div>
+<div class="container">
+    <p class="text-@Model.Type">@Model.Message</p>
+</div>
+
+@Html.When(JqueryBind.InitIncoding).Do().Direct().OnSuccess(dsl => dsl.Utilities.Document.RedirectTo(Url.Action("Index", "Browsio")).TimeOut(10000)).AsHtmlAttributes().ToDiv();

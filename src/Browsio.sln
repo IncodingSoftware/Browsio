@@ -1,0 +1,46 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Browsio.UI", "Browsio\Browsio.UI.csproj", "{1A6920F8-BA17-4C5F-AEB1-8885A5C89871}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Browsio.Domain", "Browsio.Domain\Browsio.Domain.csproj", "{15A0ED55-65AA-43F3-BA14-F53A0E9DC178}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Browsio.UnitTest", "Domain.UnitTest\Browsio.UnitTest.csproj", "{C4D59332-4413-4282-BB7A-F7518D8191EB}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{3FFA87E5-4FD6-4620-BD62-090F19EF1583}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\packages.config = .nuget\packages.config
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Browsio.Amazon", "Browsio.Amazon\Browsio.Amazon.csproj", "{36DC9544-0F5F-4DA3-AB45-BCF81F7D0A40}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1A6920F8-BA17-4C5F-AEB1-8885A5C89871}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1A6920F8-BA17-4C5F-AEB1-8885A5C89871}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1A6920F8-BA17-4C5F-AEB1-8885A5C89871}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1A6920F8-BA17-4C5F-AEB1-8885A5C89871}.Release|Any CPU.Build.0 = Release|Any CPU
+		{15A0ED55-65AA-43F3-BA14-F53A0E9DC178}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{15A0ED55-65AA-43F3-BA14-F53A0E9DC178}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{15A0ED55-65AA-43F3-BA14-F53A0E9DC178}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{15A0ED55-65AA-43F3-BA14-F53A0E9DC178}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C4D59332-4413-4282-BB7A-F7518D8191EB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C4D59332-4413-4282-BB7A-F7518D8191EB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C4D59332-4413-4282-BB7A-F7518D8191EB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C4D59332-4413-4282-BB7A-F7518D8191EB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{36DC9544-0F5F-4DA3-AB45-BCF81F7D0A40}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{36DC9544-0F5F-4DA3-AB45-BCF81F7D0A40}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{36DC9544-0F5F-4DA3-AB45-BCF81F7D0A40}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{36DC9544-0F5F-4DA3-AB45-BCF81F7D0A40}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(Performance) = preSolution
+		HasPerformanceSessions = true
+	EndGlobalSection
+EndGlobal

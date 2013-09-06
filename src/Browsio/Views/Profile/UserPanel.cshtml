@@ -1,0 +1,147 @@
+﻿@using Incoding.CQRS
+@using Incoding.MetaLanguageContrib
+@model GetUserDetailQuery.Response
+@{
+    string detailTmplId = "detailTmplId";
+    string storeDetialContainerId = "stoteDetialContainerId";
+}
+<!-- =============== User panel ================ -->
+        <div class="span3 user-panel">
+            <!-- User Photo -->
+            <div class="text-center user-photo">
+                @if (Model.IsOwner)
+                {
+                    <a href="@Url.Action("Index", "Browsio").SetHash(Url.Action("Edit", "Profile"))">
+                        <img src="@Url.Action("Img", "Dispatcher", new { Model.Id, Type = @SearchItemOfType.User })" class=""/>
+                        <span></span>
+                    </a>
+                }
+                else
+                {
+                    <img src="@Url.Action("Img", "Dispatcher", new { Model.Id, Type = @SearchItemOfType.User })" class=""/>
+                }
+                <i class="clearfix"></i>
+            </div>
+            <!-- End of User Photo -->
+            <!-- User Info -->
+            <h2>@Model.FullName</h2>
+            <div class="row-fluid user-checkers">
+                <div class="span4">
+                    <a href="#">@Model.Following</a>
+                    <p>Following</p>
+                </div>
+                <div class="span4">
+                    @(Html.When(JqueryBind.InitIncoding)
+                    .Do()
+                    .AjaxPost(Url.Action("Followers", "Profile", new { UserId = Model.Id }))
+                    .OnSuccess(dsl => dsl.Self().Core().Insert.For<IncStructureResponse<int>>(val => val.Value).Text())
+                    .AsHtmlAttributes(new { id = "Followers" })
+                    .ToLink(""))
+                    @*<a href="#"></a>*@
+                    <p>Followers</p>
+                </div>
+                <div class="span4">
+                    <a href="#">3,478</a>
+                    <p>Total Points</p>
+                </div>
+            </div>
+            <!-- End of User Info -->
+            <!-- User menu 1 -->
+            @if (Model.IsOwner)
+            {
+                <ul class="nav nav-list user-menu">
+                    <li class="nav-item">
+                        @(Html.When(JqueryBind.Click)
+                        .DoWithPreventDefault()
+                        .AjaxGet(Url.Action("Index","Activity"))
+                        .OnSuccess(dsl =>
+                                       {
+                                           dsl.With(Selector.Jquery.Class("nav-item")).Core().JQuery.Attributes.RemoveClass("active");
+                                           dsl.With(r => r.Self().Closest(selector => selector.Tag(HtmlTag.Li))).Core().JQuery.Attributes.AddClass("active");
+                                           dsl.With(Selector.Jquery.Id(storeDetialContainerId)).Core().Insert.Html();
+                                       })
+                        .AsHtmlAttributes()
+                        .ToLink("Activity"))
+                        @*<a href="#">Activity</a>*@
+                    </li>
+                    <li class="nav-item">
+                        @*<a href="@Url.Action("Index", "Browsio").SetHash(Url.Action("Wishlist", "Wishlist"))">Wish List</a>*@
+                        @(Html.When(JqueryBind.Click)
+                        .DoWithPreventDefault()
+                        .AjaxGet(Url.Action("index", "Wishlist"))
+                    .OnSuccess(dsl =>
+                                   {
+                                       dsl.With(Selector.Jquery.Class("nav-item")).Core().JQuery.Attributes.RemoveClass("active");
+                                       dsl.With(r => r.Self().Closest(selector => selector.Tag(HtmlTag.Li))).Core().JQuery.Attributes.AddClass("active");
+                                       dsl.With(Selector.Jquery.Id(storeDetialContainerId)).Core().Insert.Html();
+                                   })
+                        .AsHtmlAttributes()
+                        .ToLink("Wish List"))
+                    </li>
+                    <li>
+                        <a href="#">Rewards</a>
+                    </li>
+                </ul>
+            }
+            <!-- End of User menu 1-->
+            @if (Model.IsOwner)
+            {
+                <div class="art-label my-stores">
+                </div>
+            }
+            else
+            {
+                <div class="art-label stores">
+                </div>
+            }
+            <!-- User menu 2-->
+            <ul class="nav nav-list user-menu">
+                @foreach (var store in Model.Stores)
+                {
+                    using (Html.When(JqueryBind.InitIncoding)
+                               .Do()
+                               .Direct()
+                               .OnSuccess(dsl =>
+                                              {
+                                                  dsl.Self()
+                                                     .Core()
+                                                     .Trigger.Invoke(JqueryBind.Click)
+                                                     .If(builder => builder.Is(() => store.Value == Selector.Incoding.HashQueryString<GetUserDetailQuery>(r => r.SelectedStoreId)));
+
+                                                  dsl.Self()
+                                                     .Core()
+                                                     .Trigger.Invoke(JqueryBind.Click)
+                                                     .If(builder => builder.Is(() => Selector.Incoding.HashQueryString<GetUserDetailQuery>(r => r.SelectedStoreId) == "undefined")
+                                                                           .And
+                                                                           .Not.Exist(Selector.Jquery.Class("user-menu").Find(selector => selector.Class("active"))));
+                                              })
+                               .When(JqueryBind.Click)
+                               .Do()
+                               .AjaxGet(Url.Action("Detail", "Store", new GetStoreDetailQuery { Id = store.Value }))
+                               .OnBegin(dsl => dsl.With(r => r.Id(storeDetialContainerId)).JqueryPlugIn().Block.Lock())
+                               .OnSuccess(dsl =>
+                                              {
+                                                  dsl.With(selector => selector.Self().Closest(r => r.Class("nav-list")).Find(r => r.Tag(HtmlTag.Li)))
+                                                     .Core()
+                                                     .JQuery.Attributes.RemoveClass("active");
+                                                  dsl.With(Selector.Jquery.Class("nav-item")).Core().JQuery.Attributes.RemoveClass("active");
+                                                  dsl.Self()
+                                                     .Core()
+                                                     .JQuery.Attributes.AddClass("active");
+                                                  dsl.With(r => r.Id(storeDetialContainerId))
+                                                     .Core()
+                                                     .Insert.WithTemplate(Selector.Jquery.Id(detailTmplId)).Html();
+                                              })
+                               .OnComplete(dsl => dsl.With(r => r.Id(storeDetialContainerId)).JqueryPlugIn().Block.UnLock())
+                               .AsHtmlAttributes(new { @class = "nav-item" })
+                               .ToBeginTag(Html, HtmlTag.Li))
+                    {
+                    <a>
+                        @store.Text
+                    </a>
+                    }
+                }
+
+            </ul>
+            <!-- End of User menu 2 -->
+        </div>

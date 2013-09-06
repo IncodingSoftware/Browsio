@@ -1,0 +1,15 @@
+﻿@using Incoding.Extensions
+@model AddStoreCommand
+
+@using (Html.Browsio().BeginForm(setting =>
+                                     {
+                                         setting.IsBack = true;
+                                         setting.NotificationMessage = "Store save";
+                                         setting.IsUploadForm = true;
+                                     }))
+{
+    <fieldset>
+        <legend>Add store</legend>
+        @Html.Partial("StoreForm")
+    </fieldset>
+}

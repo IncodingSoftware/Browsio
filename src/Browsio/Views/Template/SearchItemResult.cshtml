@@ -1,0 +1,65 @@
+﻿@using (var template = Html.Incoding().Template<SearchItemVm>())
+{
+    <table class="search-table">
+        @using (var each = template.ForEach())
+        {
+            Action<IIncodingMetaLanguageCallbackBodyDsl> behavior = (dsl) =>
+                                                                        {
+                                                                            dsl.With(Selector.Jquery.Name("searchIds")).Core().JQuery.Attributes.Val(each.For(r => r.Id));
+                                                                            dsl.With(Selector.Jquery.Id("autocompleteResultId"))
+                                                                               .Core().JQuery.Attributes.AddClass("hide");
+                                                                            dsl.With(selector => selector.Self().Closest(jquerySelector => jquerySelector.Id("searchContainer")))
+                                                                               .Core().JQuery.Attributes.RemoveClass("has-result");
+                                                                            dsl.With(r => r.Id("searchContainerId")).Core().Trigger.Invoke(JqueryBind.None);
+                                                                        };
+
+            using (each.Is(r => r.IsHeader))
+            {
+            <tr class="search-header-table">
+                <td>
+                    @each.For(r => r.Message)
+                </td>
+                <td>
+                    <p>
+                        @*<p>see all @each.For(r => r.Message) &gt;</p>*@
+                        @using (Html.When(JqueryBind.Click)
+                                .DoWithPreventDefault()
+                                .Direct()
+                                .OnSuccess(behavior)
+                                .AsHtmlAttributes(new { @class = "search-table-select" })
+                                .ToBeginTag(Html, HtmlTag.Span))
+                        {
+                            <text>see all @each.For(r => r.Message) &gt;</text>
+                        }
+                    </p>
+                </td>
+            </tr>
+            }
+            using (each.Not(r => r.IsHeader))
+            {
+            <tr class="search-content-table">
+                <td>
+                    <img src="@HttpUtility.UrlDecode(Url.Action("Img", "Dispatcher", new { Id = each.For(r => r.OwnerId), Type = each.For(r => r.Type) }))"  width="40" alt="Image"/>
+                </td>
+                <td>
+                    @using (Html.When(JqueryBind.Click)
+                          .DoWithPreventDefault()
+                          .Direct()
+                          .OnSuccess(dsl =>
+                                         {
+                                             dsl.With(Selector.Jquery.Class("search"))
+                                       .Core().JQuery.Attributes.Val(Selector.Jquery.Self().Text());
+                                             behavior(dsl);
+                                         })
+                          .AsHtmlAttributes(new { @class = "search-table-select" })
+                          .ToBeginTag(Html, HtmlTag.Span))
+                    {
+                        @each.For(r => r.Message)
+                    }
+                    @*<span class="search-table-select">@each.For(r => r.Message)</span>*@
+                </td>
+            </tr>
+            }
+        }
+    </table>
+}

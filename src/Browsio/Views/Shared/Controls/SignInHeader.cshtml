@@ -1,0 +1,22 @@
+﻿@using (Html.BeginForm("SignIn", "Account", FormMethod.Post))
+{
+    <div class="form-inline">
+        <input type="text" class="input-large" name="Login" placeholder="Email">
+        <input type="password" class="input-large" name="Password" placeholder="Password">
+
+        @(Html.When(JqueryBind.Click).DoWithPreventDefault().Submit()
+              .OnError(dsl =>
+                           {
+                               dsl.With(r => r.Self().Closest(selector => selector.Tag(HtmlTag.Form))).Core().Form.Validation.Refresh();
+                               dsl.With(selector => selector.Class("field-validation-error")).Core().JQuery.Attributes.AddClass("pull-right");
+                           })
+              .AsHtmlAttributes(new { @class = "btn btn-success" }).ToSubmit("Sign In"))
+        @(Html.When(JqueryBind.Click)
+              .DoWithPreventDefaultAndStopPropagation()
+              .Ajax(setting => setting.Url = Url.Action("AddOAuth", "Connector", new { type = 0 }))
+              .AsHtmlAttributes(new { @class = "btn btn-success" })
+              .ToButton("Sign In with Facebook"))
+    </div>
+    @Html.Browsio().OpenFormDialog(Url.Action("ForgotPassword", "Account"), attributes: new { @class = "pull-left" }).ToLink("Forgot your Password?")
+    @Html.ValidationMessage("Server")
+}

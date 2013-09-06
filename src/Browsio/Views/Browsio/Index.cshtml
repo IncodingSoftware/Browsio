@@ -1,0 +1,17 @@
+﻿@using Incoding.Extensions
+@{
+    Layout = "~/Views/Shared/_BrowseLayout.cshtml";
+    ViewBag.Title = "Browsio";
+}
+<div>
+    @(Html.When(JqueryBind.InitIncoding | JqueryBind.IncChangeUrl)
+          .Do()
+          .AjaxHashGet()
+          .OnBegin(dsl => dsl.Utilities
+                             .Document
+                             .RedirectTo(Url.Action("Index", "Browsio").SetHash(Url.Action("Index", "Browse")))
+                             .If(builder => builder.Is(() => Selector.Incoding.HashUrl() == string.Empty)))
+          .OnSuccess(dsl => dsl.Self().Core().Insert.Html())
+          .AsHtmlAttributes(new {style="height:100%;"})
+          .ToDiv())
+</div>

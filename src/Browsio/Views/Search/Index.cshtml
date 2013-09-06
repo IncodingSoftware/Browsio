@@ -1,0 +1,44 @@
+﻿@using Browsio.Domain.ViewModels
+@{
+    ViewBag.Title = "Search";
+}
+<style type="text/css">
+    #main-search {
+        position: relative;
+        margin: 0 auto;
+        width: 400px;
+    }
+
+    #content-search {
+        position: absolute;
+    }
+</style>
+@Html.Incoding().RenderDropDownTemplate()
+
+<div id="main-search">
+    <input type="search" />
+    <div id="content-search">
+        sdsdfsdf
+    </div>
+</div>
+@{
+    const string temlSearchId = "temlSearchId";
+}
+@using (var template = Html.Incoding().ScriptTemplate<SearchVm>(temlSearchId))
+{
+    <table>
+        @using (var each = template.ForEach())
+        {
+            using (var eachProd = each.ForEach(r => r.Items))
+            {
+                using (eachProd.Is(vm => vm.Title))
+                {
+                    <tr>
+                        <td>@eachProd.For(r => r.Title)</td> 
+                        <td>see all @eachProd.For(r => r.Title)s</td>
+                    </tr>
+                }
+            }
+        }
+    </table>
+}

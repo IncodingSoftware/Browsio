@@ -1,0 +1,16 @@
+﻿@using Incoding.Extensions
+@model AddProductCommand
+
+@using (Html.Browsio().BeginForm(setting =>
+                                     {
+                                         setting.IsBack = true;
+                                         setting.NotificationMessage = "Product update";
+                                         setting.IsUploadForm = true;
+                                     }))
+{
+    <fieldset>
+        <legend>Add product</legend>
+        @Html.HiddenFor(r => r.StoreId)
+        @Html.Partial("ProductForm")
+    </fieldset>
+}

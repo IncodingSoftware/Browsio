@@ -1,0 +1,82 @@
+﻿@using Incoding.CQRS
+<div class="span3">
+    <ul class="nav">
+        @{
+            var profileBtnId = Guid.NewGuid().ToString();
+            var browseBtnId = Guid.NewGuid().ToString();
+        }
+        <li id="@profileBtnId">
+            <a  href="@Url.Hash("Edit", "Profile")">Profile</a>
+        </li>
+        <li id="@browseBtnId">
+            <a  href="@Url.Hash("Index", "Browse")">Browse</a>
+        </li>
+        @(Html.When(JqueryBind.InitIncoding | JqueryBind.IncChangeUrl)
+                                  .Do()
+                                  .Direct()
+                                  .OnSuccess(dsl =>
+                                                 {
+                                                     dsl.With(r => r.Id(profileBtnId).Add(selector => selector.Id(browseBtnId)))
+                                                        .Core()
+                                                        .JQuery.Attributes.RemoveClass("active");
+
+                                                     dsl.With(r => r.Id(browseBtnId))
+                                                        .Core()
+                                                        .JQuery.Attributes.AddClass("active")
+                                                        .If(builder => builder.Is(() => Selector.Incoding.HashUrl().Contains("Profile/Detail"))
+                                                                              .Or
+                                                                              .Is(() => Selector.Incoding.HashUrl().Contains("Browse")));
+
+                                                     dsl.With(r => r.Id(profileBtnId))
+                                                        .Core()
+                                                        .JQuery.Attributes.AddClass("active")
+                                                        .If(builder => builder.Is(() => Selector.Incoding.HashUrl().Contains("Profile/Edit"))
+                                                                              .Or
+                                                                              .Is(() => Selector.Incoding.HashUrl().Contains("Product/Add"))
+                                                                              .Or
+                                                                              .Is(() => Selector.Incoding.HashUrl().Contains("Product/Edit"))
+                                                                              .Or
+                                                                              .Is(() => Selector.Incoding.HashUrl().Contains("Store/Add"))
+                                                                              .Or
+                                                                              .Is(() => Selector.Incoding.HashUrl().Contains("Store/Edit"))
+                                                                              .Or
+                                                                              .Is(() => Selector.Incoding.HashUrl().Contains("Product/SearchInAmazon")));
+
+
+                                                 })
+                                  .AsHtmlAttributes()
+                                  .ToDiv())
+    </ul>
+</div>
+<div class="span3">
+    <div class="pull-left header-search">
+        <input type="text" placeholder="Search" />
+        <input type="button" />
+    </div>
+</div>
+<div class="span4 pull-right user-block">
+    @(Html.When(JqueryBind.Click)
+                              .DoWithPreventDefault()
+                              .Ajax(setting => setting.Url = Url.Action("SignOut", "Account"))
+                              .AsHtmlAttributes(new { @class = "btn btn-success btn-mini" })
+                              .ToButton("Sign Out"))
+    <a href="#" class="options"></a>
+    @{
+        var tmplId = Guid.NewGuid().ToString();
+        using (var template = Html.Incoding().ScriptTemplate<IncStructureResponse<string>>(tmplId))
+        {
+            using (var each = template.ForEach())
+            {
+        <a href="@Url.Hash("Edit", "Profile")">
+            @each.For(r=>r.Value)
+        </a>
+            }
+        }
+    }
+    @Html.Browsio().Load(setting =>
+                                                 {
+                                                     setting.Url = Url.Action("UserLogin", "Profile");
+                                                     setting.Template = Selector.Jquery.Id(tmplId);
+                                                 })
+    <div class="clearfix"></div>
+</div>

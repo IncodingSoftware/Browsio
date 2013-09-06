@@ -1,0 +1,55 @@
+﻿@using Incoding.CQRS
+@{
+    using (var template = Html.Incoding().Template<SearchStoreQuery.Response>())
+    {
+    <div class="container">
+        <div class="row">
+            @using (var each = template.ForEach())
+            {
+                <div class="span3 store-search-view">
+                    <a href="@HttpUtility.UrlDecode(Url.Action("Index", "Browsio").SetHash(Url.Action("Detail", "Profile", new GetUserDetailQuery
+                                                                                                                                   {
+                                                                                                                                       Id = each.For(r => r.UserId),
+                                                                                                                                       SelectedStoreId = each.For(r => r.Id)
+                                                                                                                                   })))">
+                        <div class="search-item @each.For(r => r.CategoryAsClass)">
+                            <img src="@HttpUtility.UrlDecode(Url.Action("Img", "Dispatcher", new { id = each.For(r => r.Id), Type = @SearchItemOfType.Store }))" />
+                            <div class="description">
+                                <span>
+                                    @each.For(r => r.Name)
+                                </span>
+                                <p class="owner">
+                                    <small>owner: </small>
+                                    <a href="@HttpUtility.UrlDecode(Url.Action("Index", "Browsio").SetHash(Url.Action("Detail", "Profile", new GetUserDetailQuery
+                                                                                                                                                   {
+                                                                                                                                                       Id = each.For(r => r.UserId)
+                                                                                                                                                   })))">
+                                        @each.For(r => r.User)
+                                    </a>
+                                </p>
+                                <p>
+                                    @(Html.When(JqueryBind.InitIncoding)
+                                    .Do()
+                                    .AjaxPost(Url.Action("Watches", "Store", new { StoreId = each.For(r => r.Id) }))
+                                    .OnSuccess(dsl => dsl.Self().Core().Insert.For<IncStructureResponse<int>>(val => val.Value).Text())
+                                    .AsHtmlAttributes(new { @class = "watches" })
+                                    .ToLink(""))
+                                    @*<a href="#" class="watches">12,315</a>*@
+                                    @(Html.When(JqueryBind.InitIncoding)
+                                    .Do()
+                                    .AjaxPost(Url.Action("LikesThisStore", "Store", new { StoreId = each.For(r => r.Id) }))
+                                    .OnSuccess(dsl => dsl.Self().Core().Insert.For<IncStructureResponse<int>>(val => val.Value).Text())
+                                    .AsHtmlAttributes(new { @class = "likes", id = "likes" })
+                                    .ToLink(""))
+                                    @*<a href="#" class="likes">3,435</a>*@
+                                </p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            }
+        </div>
+    </div>
+    }
+
+}

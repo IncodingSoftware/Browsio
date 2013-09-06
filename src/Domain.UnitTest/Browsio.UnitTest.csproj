@@ -1,0 +1,241 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{C4D59332-4413-4282-BB7A-F7518D8191EB}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Browsio.UnitTest</RootNamespace>
+    <AssemblyName>Browsio.UnitTest</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="FluentNHibernate">
+      <HintPath>..\packages\FluentNHibernate.1.3.0.733\lib\FluentNHibernate.dll</HintPath>
+    </Reference>
+    <Reference Include="FluentValidation">
+      <HintPath>..\packages\FluentValidation-Signed.3.4.6.0\lib\Net40\FluentValidation.dll</HintPath>
+    </Reference>
+    <Reference Include="Iesi.Collections">
+      <HintPath>..\packages\Iesi.Collections.3.2.0.4000\lib\Net35\Iesi.Collections.dll</HintPath>
+    </Reference>
+    <Reference Include="Incoding">
+      <HintPath>..\packages\Incoding.MSpecContrib.1.0.101.1005\lib\net40\Incoding.dll</HintPath>
+    </Reference>
+    <Reference Include="Incoding.MSpecContrib">
+      <HintPath>..\packages\Incoding.MSpecContrib.1.0.101.1005\lib\net40\Incoding.MSpecContrib.dll</HintPath>
+    </Reference>
+    <Reference Include="Machine.Specifications">
+      <HintPath>..\packages\Machine.Specifications.0.5.12\lib\net40\Machine.Specifications.dll</HintPath>
+    </Reference>
+    <Reference Include="Machine.Specifications.Clr4">
+      <HintPath>..\packages\Machine.Specifications.0.5.12\lib\net40\Machine.Specifications.Clr4.dll</HintPath>
+    </Reference>
+    <Reference Include="Moq">
+      <HintPath>..\packages\Moq.4.0.10827\lib\NET40\Moq.dll</HintPath>
+    </Reference>
+    <Reference Include="NHibernate">
+      <HintPath>..\packages\NHibernate.3.3.3.4000\lib\Net35\NHibernate.dll</HintPath>
+    </Reference>
+    <Reference Include="StructureMap">
+      <HintPath>..\packages\structuremap.2.6.4.1\lib\net40\StructureMap.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Web.WebPages, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BrowsioPleasure.cs" />
+    <Compile Include="Domain\Amazon service\When_amazon_service.cs" />
+    <Compile Include="Domain\Behaviors\When_user_full_name.cs" />
+    <Compile Include="Domain\Behaviors\When_store_category_as_amazon.cs" />
+    <Compile Include="Domain\Infrastructure\When_TimeSpanToString_DateExtension.cs" />
+    <Compile Include="Domain\Infrastructure\When_forms_authentication_is_auntehication_user_identity_false.cs" />
+    <Compile Include="Domain\Operations\Genre\Command\When_add_genre.cs" />
+    <Compile Include="Domain\Operations\Genre\Query\When_genres_by_category.cs" />
+    <Compile Include="Domain\Operations\Product\Command\When_delete_product_by_asin.cs" />
+    <Compile Include="Domain\Operations\Product\Command\When_edit_product.cs" />
+    <Compile Include="Domain\Operations\Product\Command\When_add_product.cs" />
+    <Compile Include="Domain\Operations\Product\Query\When_get_product_by_amazon.cs" />
+    <Compile Include="Domain\Operations\Product\Query\When_get_product_by_amazon_with_empty_title.cs" />
+    <Compile Include="Domain\Operations\Product\Query\When_get_product_by_store.cs" />
+    <Compile Include="Domain\Operations\Search\When_get_store_id_search.cs" />
+    <Compile Include="Domain\Operations\Search\When_get_search_items.cs" />
+    <Compile Include="Domain\Operations\Store\Command\When_edit_store_with_exist_command.cs" />
+    <Compile Include="Domain\Operations\Store\Command\When_add_store.cs" />
+    <Compile Include="Domain\Operations\Store\Command\When_add_store_with_exist_category.cs" />
+    <Compile Include="Domain\Operations\Store\Command\When_edit_store_same_category.cs" />
+    <Compile Include="Domain\Operations\Shared\When_get_image.cs" />
+    <Compile Include="Domain\Operations\Store\Query\When_search_store.cs" />
+    <Compile Include="Domain\Operations\Store\Query\When_get_store_detail.cs" />
+    <Compile Include="Domain\Operations\Store\Query\When_get_stores_by_top.cs" />
+    <Compile Include="Domain\Operations\Store\Query\When_get_store_by_id.cs" />
+    <Compile Include="Domain\Operations\Store\Query\When_get_stores_by_user.cs" />
+    <Compile Include="Domain\Operations\User\Command\When_add_user_on_o_auth.cs" />
+    <Compile Include="Domain\Operations\User\Command\When_sign_in_fb_user.cs" />
+    <Compile Include="Domain\Operations\User\Command\When_confirm_user.cs" />
+    <Compile Include="Domain\Operations\User\Command\When_forgot_user_password_with_wrong_login.cs" />
+    <Compile Include="Domain\Operations\User\Command\When_forgot_user_password.cs" />
+    <Compile Include="Domain\Operations\User\Command\When_change_user_password.cs" />
+    <Compile Include="Domain\Operations\User\Command\When_edit_user.cs" />
+    <Compile Include="Domain\Operations\User\Command\When_add_user_with_not_unique_login.cs" />
+    <Compile Include="Domain\Operations\User\Command\When_add_user.cs" />
+    <Compile Include="Domain\Operations\User\Query\When_exist_facebook_user.cs" />
+    <Compile Include="Domain\Operations\User\Query\When_exist_facebook_user_with_wrong_fb.cs" />
+    <Compile Include="Domain\Operations\User\Query\When_get_user_detial.cs" />
+    <Compile Include="Domain\Operations\User\Query\When_exist_user_by_token.cs" />
+    <Compile Include="Domain\Operations\User\Query\When_exist_user_by_token_false.cs" />
+    <Compile Include="Domain\Operations\User\Query\When_get_user_by_credential.cs" />
+    <Compile Include="Domain\Persistences\When_save_Activity.cs" />
+    <Compile Include="Domain\Persistences\When_save_Views.cs" />
+    <Compile Include="Domain\Persistences\When_save_SearchItem.cs" />
+    <Compile Include="Domain\Persistences\When_save_Genre.cs" />
+    <Compile Include="Domain\Persistences\When_save_Product.cs" />
+    <Compile Include="Domain\Persistences\When_save_Store.cs" />
+    <Compile Include="Domain\Persistences\When_save_User.cs" />
+    <Compile Include="Domain\Specifications\Where\When_store_by_ids_opt.cs" />
+    <Compile Include="Domain\Specifications\Where\When_user_by_fb_id.cs" />
+    <Compile Include="Domain\Specifications\Where\When_product_by_name_where.cs" />
+    <Compile Include="Domain\Specifications\Where\When_store_by_genre_where.cs" />
+    <Compile Include="Domain\Specifications\Where\When_search_item_by_query.cs" />
+    <Compile Include="Domain\Specifications\Where\When_search_item_by_owner_where.cs" />
+    <Compile Include="Domain\Specifications\Where\When_product_by_asin.cs" />
+    <Compile Include="Domain\Specifications\Where\When_genre_by_category.cs" />
+    <Compile Include="Domain\Specifications\Where\When_product_by_store_where.cs" />
+    <Compile Include="Domain\Specifications\Where\When_store_by_user.cs" />
+    <Compile Include="Domain\Specifications\Where\When_store_by_category.cs" />
+    <Compile Include="Domain\Specifications\Where\When_user_by_reset_token_where.cs" />
+    <Compile Include="Domain\Specifications\Where\When_user_by_login_where.cs" />
+    <Compile Include="Domain\Specifications\Where\When_user_by_password_where.cs" />
+    <Compile Include="Domain\Subscribers\When_activity_subscriber.cs" />
+    <Compile Include="Domain\Subscribers\When_search_item_subscriber.cs" />
+    <Compile Include="Domain\Subscribers\When_search_item_subscriber_with_item.cs" />
+    <Compile Include="Domain\Subscribers\When_send_email_subscriber.cs" />
+    <Compile Include="MSpecAssemblyContext.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UI\Account\When_account_controller_change_password_by_email_success.cs" />
+    <Compile Include="UI\Account\When_account_controller_get_sign_up.cs" />
+    <Compile Include="UI\Account\When_account_controller_sign_out.cs" />
+    <Compile Include="UI\Account\When_account_controller_forgot_password_post.cs" />
+    <Compile Include="UI\Account\When_account_controller_confirm_success.cs" />
+    <Compile Include="UI\Account\When_account_controller_forgot_password.cs" />
+    <Compile Include="UI\Account\When_account_controller_confirm.cs" />
+    <Compile Include="UI\Account\When_account_controller_post_change_password_success.cs" />
+    <Compile Include="UI\Account\When_account_controller_post_change_password_failed.cs" />
+    <Compile Include="UI\Account\When_account_controller_get_change_password_failed.cs" />
+    <Compile Include="UI\Account\When_account_controller_get_change_password_success.cs" />
+    <Compile Include="UI\Account\When_account_controller_post_sing_with_not_activated.cs" />
+    <Compile Include="UI\Activity\When_activity_controller_post_fetch_activity.cs" />
+    <Compile Include="UI\Activity\When_activity_controller_get_index.cs" />
+    <Compile Include="UI\Browse\When_browse_cotroller_index.cs" />
+    <Compile Include="UI\Category\When_category_controller_fetch.cs" />
+    <Compile Include="UI\Connector\Class1.cs" />
+    <Compile Include="UI\Connector\When_connector_controller_get_success.cs" />
+    <Compile Include="UI\Connector\When_connector_controller_add_o_auth_with_authentication.cs" />
+    <Compile Include="UI\Connector\When_connector_controller_add_o_auth_with_wrong_authentication.cs" />
+    <Compile Include="UI\Dispatcher\When_dispatcher_controller.cs" />
+    <Compile Include="UI\Dispatcher\When_dispatcher_controller_delete.cs" />
+    <Compile Include="UI\Genre\When_genre_controller_fetch.cs" />
+    <Compile Include="UI\Notification\When_notification_controller_lending_ajax.cs" />
+    <Compile Include="UI\Notification\When_notification_controller_landing.cs" />
+    <Compile Include="UI\Product\When_product_controller_template.cs" />
+    <Compile Include="UI\Product\When_product_controller_post_add_with_image_url.cs" />
+    <Compile Include="UI\Product\When_product_controller_search_in_amazon.cs" />
+    <Compile Include="UI\Product\When_product_controller_delete_by_asin.cs" />
+    <Compile Include="UI\Product\When_product_controller_fetch_by_amazon.cs" />
+    <Compile Include="UI\Product\When_product_controller_fetch.cs" />
+    <Compile Include="UI\Product\When_product_controller_post_add.cs" />
+    <Compile Include="UI\Product\When_product_controller_post_edit.cs" />
+    <Compile Include="UI\Product\When_product_controller_get_add.cs" />
+    <Compile Include="UI\Product\When_product_controller_get_edit.cs" />
+    <Compile Include="UI\Profile\When_profile_controller_index.cs" />
+    <Compile Include="UI\Profile\When_profile_controller_get_user_login.cs" />
+    <Compile Include="UI\Profile\When_profile_controller_post_followers.cs" />
+    <Compile Include="UI\Profile\When_profile_controller_detail.cs" />
+    <Compile Include="UI\Profile\When_profile_controller_get_edit.cs" />
+    <Compile Include="UI\Profile\When_profile_controller_post_edit.cs" />
+    <Compile Include="UI\Account\When_account_controller_post_sign_up.cs" />
+    <Compile Include="UI\Account\When_account_controller_post_sign_in.cs" />
+    <Compile Include="UI\Account\When_account_controller_get_sing_in.cs" />
+    <Compile Include="UI\Account\When_account_controller_post_sing_with_wrong_credential.cs" />
+    <Compile Include="UI\Search\When_search_controller_quick.cs" />
+    <Compile Include="UI\Store\When_store_controller_likes_this_store.cs" />
+    <Compile Include="UI\Store\When_store_controller_unfollow_this_store.cs" />
+    <Compile Include="UI\Store\When_store_controller_follow_this_store.cs" />
+    <Compile Include="UI\Store\When_store_controller_watches.cs" />
+    <Compile Include="UI\Store\When_store_controller_search.cs" />
+    <Compile Include="UI\Store\When_store_controller_detail.cs" />
+    <Compile Include="UI\Store\When_store_controller_fetch_by_top.cs" />
+    <Compile Include="UI\Dispatcher\When_dispatcher_controller_get_img.cs" />
+    <Compile Include="UI\Store\When_store_controller_post_edit.cs" />
+    <Compile Include="UI\Store\When_store_controller_get_edit.cs" />
+    <Compile Include="UI\Store\When_store_controller_get_add.cs" />
+    <Compile Include="UI\Store\When_store_controller_post_add.cs" />
+    <Compile Include="UI\Store\When_store_controller_fetch.cs" />
+    <Compile Include="UI\Template\When_template_controller_get.cs" />
+    <Compile Include="UI\Wishlist\When_wishlist_controller_post_add_product_to_wishlist.cs" />
+    <Compile Include="UI\Wishlist\When_wishlist_controller_post_fetch_wishlist.cs" />
+    <Compile Include="UI\Wishlist\When_wishlist_controller_get_index.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Domain\Specifications\Order\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <Content Include="db.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Browsio.Amazon\Browsio.Amazon.csproj">
+      <Project>{36dc9544-0f5f-4da3-ab45-bcf81f7d0a40}</Project>
+      <Name>Browsio.Amazon</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Browsio.Domain\Browsio.Domain.csproj">
+      <Project>{15a0ed55-65aa-43f3-ba14-f53a0e9dc178}</Project>
+      <Name>Browsio.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Browsio\Browsio.UI.csproj">
+      <Project>{1a6920f8-ba17-4c5f-aeb1-8885a5c89871}</Project>
+      <Name>Browsio.UI</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
